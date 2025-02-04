@@ -7,7 +7,7 @@ import MultiQuestion from '../components/MultiSelect.vue'
   <div>
     <h1>Q1</h1>
   
-    <MultiQuestion />
+    <MultiQuestion question-title="How are you?" :question-options="['good', 'bad']" next-question="/q2"/>
 
   </div>
 
