@@ -7,7 +7,7 @@ import MultiQuestion from '../components/MultiSelect.vue'
   <div>
     <h1>Quiz!</h1>
   
-    <MultiQuestion />
+    
 
   </div>
 
