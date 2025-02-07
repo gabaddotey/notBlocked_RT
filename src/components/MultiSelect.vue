@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {ref,defineComponent, getCurrentInstance, onMounted } from 'vue'
 
+let idCount = 1
+
 /*const props = defineComponent({
   questionTitle: String,
   questionOptions: { type: Array, required: true },
@@ -8,7 +10,7 @@ import {ref,defineComponent, getCurrentInstance, onMounted } from 'vue'
 })
 */
 
-defineProps<{
+const props = defineProps<{
   questionTitle: string
   questionOptions: () => string[]
   nextQuestion: string
@@ -31,19 +33,15 @@ console.log("THIS IS THE ID AFTERRR"+props.id)*/
     <h3>{{ id }}</h3>
     <div class="wrapper" v-for="option in questionOptions">
       <input type="checkbox" value="{option}">{{ option }}</input>
-      
     </div>
-  <div>
-    <!--<button><RouterLink :to="this.nextQuestion">Next</RouterLink></button>-->
+    <h3>This is the nextQuestion value: {{ nextQuestion }}</h3>
+
+    <div>
+    <button><RouterLink :to="nextQuestion">Next</RouterLink></button>
     <button>Skip for now</button>
   </div>
 </template>
 
 <style scoped>
-
-/* .wrapper{
-    background-color: antiquewhite;
-} */
-
 
 </style>
