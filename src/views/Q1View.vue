@@ -6,7 +6,6 @@ import { useRouter, type RouteParams } from 'vue-router'
 const oplist = ['qwerty','246','abc']
 
 
-
 </script>
 
 <template>
