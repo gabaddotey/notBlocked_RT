@@ -3,6 +3,8 @@ import HomeView from '../views/HomeView.vue'
 import LandingView from '@/views/LandingView.vue'
 import QuizView from '@/views/QuizView.vue'
 import Q1View from '@/views/Q1View.vue'
+import MultiSelect from '@/components/MultiSelect.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,6 +25,10 @@ const router = createRouter({
       component: Q1View,
     },
     {
+      path: '/quiz/:id',
+      component: MultiSelect,
+    },
+    {
       path: '/helloworld',
       name: 'home',
       component: HomeView,
@@ -37,5 +43,6 @@ const router = createRouter({
     },
   ],
 })
+
 
 export default router
