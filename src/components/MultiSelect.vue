@@ -2,38 +2,52 @@
 import {ref,watch, defineComponent, getCurrentInstance, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import getQuestion from '@/stores/questions.ts'
+import {prefStore} from '@/stores/preferences.ts'
 
 
 const router = useRoute()
-console.log("This is the ROUTE id: "+router.params.id.toString())
-const ID: number = parseInt(router.params.id.toString())
+// console.log("This is the ROUTE id: "+router.params.id.toString())
+// const ID: number = parseInt(router.params.id.toString())
 
-console.log("This is the question title: "+getQuestion(ID).questionTitle)
+// console.log("This is the question title: "+getQuestion(ID).questionTitle)
 
 
 var questionTitle: string
 var questionOptions: string[]
 var nextQuestion: string
 var backQuestion: string
+var question: string
 
 const loading = ref(false)
-const question = ref(null)
 const error = ref(null)
+
+const checkedAnswers = ref([])
+watch(() => checkedAnswers.value, saveAnswer)
 
 watch(() => router.params.id, fetchData, { immediate: true })
 
 async function fetchData(id: number) {
-  const ID: number = parseInt(router.params.id.toString())
+  console.log(`The id passed in was: ${id}`)
+  const questionId: number = parseInt(id)
+  question = getQuestion(questionId)!
 
-  error.value = question.value = null
+  error.value = question.value == null
   loading.value = true
-  
+
+  const answer = prefStore.getAnswer(questionId)
+  console.log(`Already answered?: ${answer}`)
+  // If answer is not undefined, that means they already answered it.
+  // Put the answer in the checkedAnswers array
+  if(answer){
+    //...
+  }
+
   try {
-    questionTitle = getQuestion(id).questionTitle
-    questionOptions = getQuestion(id).questionOptions
-    nextQuestion = "/quiz/"+(ID+1).toString()
-    if(ID>0){
-      backQuestion = "/quiz/"+(ID-1).toString()
+    questionTitle = question.questionTitle
+    questionOptions = question.questionOptions
+    nextQuestion = "/quiz/"+(questionId+1).toString()
+    if(id>0){
+      backQuestion = "/quiz/"+(questionId-1).toString()
     }
   } catch {
     console.log("dang")
@@ -42,14 +56,21 @@ async function fetchData(id: number) {
   }
   
 }
+async function saveAnswer(ans: any) {
+  const answers = checkedAnswers.value.map(v => v["option"])
+  console.log(`QuestionId: ${question.id}`)
+  console.log(`Saving answers ${answers}`)
+
+  // call prefstore to save the answer
+}
 
 </script>
 
 <template>
     <h1>Title:{{ questionTitle }}</h1>
-    <h3>ID:{{ router.params.id }}</h3>
-    <div class="wrapper" v-for="option in questionOptions">
-      <input type="checkbox" value="{option}">{{ option }}</input>
+    <h3>Path ID:{{ router.params.id }}</h3>
+    <div class="wrapper" v-for="option in questionOptions" key="option.id">
+      <input type="checkbox" :value="{option}" v-model="checkedAnswers">{{ option }}</input>
     </div>
     <h3>This is the nextQuestion link: {{ nextQuestion }}</h3>
     <h3>This is the backQuestion link: {{ backQuestion }}</h3>

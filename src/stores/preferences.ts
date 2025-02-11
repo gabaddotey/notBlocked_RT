@@ -1,19 +1,33 @@
-import { ref, computed } from 'vue'
-import { defineStore } from 'pinia'
+import { ref, reactive } from 'vue'
 
-export type Preferences = {
-  question1?: string
-  question2?: string
-  question3?: number
+export type Answer = { 
+  singleAnwer?: string 
+  multiple?: string[]
 }
 
 
-export const usePreferenceStore = defineStore('preferences', () => {
-  const preferences = ref<Preferences>({})
-  function updatePreferences(pref: Preferences) {
-    preferences.value = pref
-  }
+// store.js
 
-  return { preferences, updatePreferences }
+export const store = reactive({
+  count: 0,
+  increment() {
+    this.count++
+  }
 })
 
+export type Preferences = Map<number, Answer>;
+
+
+export const prefStore = reactive({
+  preferences : new Map<number, Answer>(),
+  // const preferences = ref<Preferences>{})
+  updatePreferences(pref: Preferences) {
+    this.preferences = pref
+  },
+  storeAnswer(questionId: number, answer: Answer) {
+    this.preferences.set(questionId, answer)
+  },
+  getAnswer(questionId: number): Answer | undefined {
+    return this.preferences.get(questionId)
+  }
+})
