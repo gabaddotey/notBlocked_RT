@@ -6,17 +6,14 @@ import {prefStore} from '@/stores/preferences.ts'
 
 
 const router = useRoute()
-// console.log("This is the ROUTE id: "+router.params.id.toString())
-// const ID: number = parseInt(router.params.id.toString())
-
-// console.log("This is the question title: "+getQuestion(ID).questionTitle)
 
 
 var questionTitle: string
 var questionOptions: string[]
+var multiQuestion: boolean
 var nextQuestion: string
 var backQuestion: string
-var question: string
+var question: Question
 
 const loading = ref(false)
 const error = ref(null)
@@ -30,8 +27,9 @@ async function fetchData(id: number) {
   console.log(`The id passed in was: ${id}`)
   const questionId: number = parseInt(id)
   question = getQuestion(questionId)!
-
-  error.value = question.value == null
+  //boolean is undefined unles I put it here???
+  multiQuestion = question.multiQuestion
+  //error.value = question.value == null
   loading.value = true
 
   const answer = prefStore.getAnswer(questionId)
@@ -44,7 +42,7 @@ async function fetchData(id: number) {
 
   try {
     questionTitle = question.questionTitle
-    questionOptions = question.questionOptions
+    questionOptions = question.questionOptions   
     nextQuestion = "/quiz/"+(questionId+1).toString()
     if(id>0){
       backQuestion = "/quiz/"+(questionId-1).toString()
@@ -57,9 +55,14 @@ async function fetchData(id: number) {
   
 }
 async function saveAnswer(ans: any) {
-  const answers = checkedAnswers.value.map(v => v["option"])
-  console.log(`QuestionId: ${question.id}`)
-  console.log(`Saving answers ${answers}`)
+  try{
+    const answers = checkedAnswers.value.map(v => v["option"])
+    console.log(`QuestionId: ${question.id}`)
+    console.log(`Saving answers ${answers}`)
+  } catch {
+    console.log("dang")
+  }
+  
 
   // call prefstore to save the answer
 }
@@ -69,9 +72,15 @@ async function saveAnswer(ans: any) {
 <template>
     <h1>Title:{{ questionTitle }}</h1>
     <h3>Path ID:{{ router.params.id }}</h3>
-    <div class="wrapper" v-for="option in questionOptions" key="option.id">
+
+    <div class="wrapper" v-if="multiQuestion" v-for="option in questionOptions" key="option.id">
       <input type="checkbox" :value="{option}" v-model="checkedAnswers">{{ option }}</input>
     </div>
+
+    <div class="wrapper" v-if="!multiQuestion" v-for="option in questionOptions" key="option.id">
+      <input type="radio" :value="{option}" v-model="checkedAnswers">{{ option }}</input>
+    </div>
+
     <h3>This is the nextQuestion link: {{ nextQuestion }}</h3>
     <h3>This is the backQuestion link: {{ backQuestion }}</h3>
 
@@ -79,6 +88,10 @@ async function saveAnswer(ans: any) {
       <button><RouterLink :to="nextQuestion">Next</RouterLink></button>
       <button v-if="router.params.id !== '0'"><RouterLink :to="backQuestion">Back</RouterLink></button>
       <button>Skip for now</button>
+    </div>
+
+    <div v-for = "answer in checkedAnswers">
+      checked answer: {{ answer }}
     </div>
 </template>
 
