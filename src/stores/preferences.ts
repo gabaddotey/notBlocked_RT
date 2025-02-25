@@ -1,8 +1,8 @@
 import { ref, reactive } from 'vue'
 
 export type Answer = { 
-  singleAnwer?: string 
-  multiple?: string[]
+  singleAnswer?: string 
+  multiAnswer?: string[]
 }
 
 
