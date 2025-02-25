@@ -1,9 +1,18 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import {getActivityList, getActivity} from '@/stores/activities.ts'
+import EventPreview from '../components/EventPreview.vue'
+
+var activityList = getActivityList()
+
+
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <h1>home</h1>
+
+  <div v-for="act in activityList">
+    <EventPreview :activityName= act[1].activityName :isFree=act[1].isFree :activityLocation=act[1].activityLocation 
+    :activityDistance=act[1].activityDistance /> 
+  </div>
+
 </template>

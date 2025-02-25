@@ -1,8 +1,3 @@
-import { reactive } from 'vue'
-import { ref } from 'vue'
-
-
-
 interface Question {
   id: number
   questionTitle: string

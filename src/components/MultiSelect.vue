@@ -54,6 +54,7 @@ async function fetchData(id: number) {
   }
   
 }
+
 async function saveAnswer(ans: any) {
   try{
     const answers = checkedAnswers.value.map(v => v["option"])
@@ -63,7 +64,6 @@ async function saveAnswer(ans: any) {
     console.log("dang")
   }
   
-
   // call prefstore to save the answer
 }
 
@@ -75,11 +75,11 @@ async function saveAnswer(ans: any) {
 
     <div class="wrapper" v-if="multiQuestion" v-for="option in questionOptions" key="option.id">
       <input type="checkbox" :value="{option}" v-model="checkedAnswers">{{ option }}</input>
-    </div>
+    </div> 
 
-    <div class="wrapper" v-if="!multiQuestion" v-for="option in questionOptions" key="option.id">
+    <!-- <div class="wrapper" v-if="!multiQuestion" v-for="option in questionOptions" key="option.id">
       <input type="radio" :value="{option}" v-model="checkedAnswers">{{ option }}</input>
-    </div>
+    </div> -->
 
     <h3>This is the nextQuestion link: {{ nextQuestion }}</h3>
     <h3>This is the backQuestion link: {{ backQuestion }}</h3>
@@ -87,7 +87,7 @@ async function saveAnswer(ans: any) {
     <div>
       <button><RouterLink :to="nextQuestion">Next</RouterLink></button>
       <button v-if="router.params.id !== '0'"><RouterLink :to="backQuestion">Back</RouterLink></button>
-      <button>Skip for now</button>
+      <button><RouterLink to="/home">Skip for now</RouterLink></button>
     </div>
 
     <div v-for = "answer in checkedAnswers">

@@ -4,6 +4,8 @@ import LandingView from '@/views/LandingView.vue'
 import QuizView from '@/views/QuizView.vue'
 import Q1View from '@/views/Q1View.vue'
 import MultiSelect from '@/components/MultiSelect.vue'
+import HomeViewCopy from '@/views/HomeView copy.vue'
+import EventPage from '@/components/EventPage.vue'
 
 
 const router = createRouter({
@@ -15,14 +17,18 @@ const router = createRouter({
       component: LandingView,
     },
     {
+      path: '/home',
+      name: 'home',
+      component: HomeView,
+    },
+    {
+      path: '/event/:id',
+      component: EventPage,
+    },
+    {
       path: '/quiz',
       name: 'quiz',
       component: QuizView,
-    },
-    {
-      path: '/q1',
-      name: 'Q1',
-      component: Q1View,
     },
     {
       path: '/quiz/:id',
@@ -30,8 +36,8 @@ const router = createRouter({
     },
     {
       path: '/helloworld',
-      name: 'home',
-      component: HomeView,
+      name: 'homecopy',
+      component: HomeViewCopy,
     },
     {
       path: '/about',
