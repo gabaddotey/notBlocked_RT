@@ -64,7 +64,7 @@ async function fetchData(id: string| string[]) {
   
 }
 
-async function saveSingleAnswer(ans: {value: any}) {
+async function saveSingleAnswer(ans: any) {
   if (singleAnswer.value === null || singleAnswer.value["option"] === null) {
     console.log(`Dang singleAnswer is null`)
     return
