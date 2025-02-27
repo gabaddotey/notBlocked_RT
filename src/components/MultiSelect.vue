@@ -7,7 +7,6 @@ import {prefStore, type Answer} from '@/stores/preferences.ts'
 
 const router = useRoute()
 
-
 var questionTitle: string
 var questionOptions: string[]
 var multiQuestion: boolean

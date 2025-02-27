@@ -1,3 +1,4 @@
+import { parseConfigFileTextToJson } from 'typescript'
 import { ref, reactive } from 'vue'
 
 export type Answer = { 
@@ -29,5 +30,8 @@ export const prefStore = reactive({
   },
   getAnswer(questionId: number): Answer | undefined {
     return this.preferences.get(questionId)
+  },
+  asJson(): string { 
+    return JSON.stringify(this.preferences)
   }
 })
