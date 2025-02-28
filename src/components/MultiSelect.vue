@@ -4,7 +4,6 @@ import { useRoute } from 'vue-router'
 import {getQuestion, type Question} from '@/stores/questions.ts'
 import {prefStore, type Answer} from '@/stores/preferences.ts'
 
-
 const router = useRoute()
 
 var questionTitle: string

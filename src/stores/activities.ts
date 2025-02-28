@@ -1,4 +1,4 @@
-interface Activity {
+export interface Activity {
   activityId: number
   activityName: string
   activityDate: string
@@ -13,14 +13,14 @@ export const activityList: Map<number, Activity> = new Map<number, Activity>([
   [3, { activityId: 3, activityName: 'THIRD Activity', activityDate:"activityDate of 3rd activity", isFree:true, activityLocation:"location 3", activityDistance:333}],
 ])
 
-export function getActivityList(): Map<number, Activity> {
+function getActivityList(): Map<number, Activity> {
   return activityList
 }
 
-export function getActivity(activityId: number): Activity | undefined {
+function getActivity(activityId: number): Activity | undefined {
   const activity = activityList.get(activityId)
   // console.log(`ID: ${question.id} title: ${question.activityName}`)
   return activity
 }
 
-export default { getActivityList, getActivity }
+export { getActivityList, getActivity }
