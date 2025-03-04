@@ -6,9 +6,9 @@
 <template>
     
   <div>
+    <button><RouterLink to="/events">Going Out?</RouterLink></button>
     <button><RouterLink to="/home">Home</RouterLink></button>
-    <button><RouterLink to="/home">Going Out?</RouterLink></button>
-    <button><RouterLink to="/home">Staying In?</RouterLink></button>
+    <button><RouterLink to="/crafts">Staying In?</RouterLink></button>
   </div>
 </template>
 

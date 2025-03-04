@@ -28,6 +28,7 @@ div{
   margin: 5px;
 }
 .price{
+  float:right;
   text-align: right;
   font-size: 15px;
 }

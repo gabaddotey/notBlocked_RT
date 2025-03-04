@@ -17,7 +17,7 @@ const error = ref(null)
 
 watch(() => router.params.id, fetchData, { immediate: true })
 
-async function fetchData(id: number) {
+async function fetchData(id: string| string[] | number) {
   console.log(`The id passed in was: ${id}`)
   //const activityId: number = parseInt(id)
   id = parseInt(id.toString())

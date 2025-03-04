@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import {getActivityList, getActivity} from '@/stores/activities.ts'
 import EventPreview from '../components/EventPreview.vue'
-import NavBar from '@/components/NavBar.vue';
-import type { forEachChild } from 'typescript';
+import {getCraftList, getCraft} from '@/stores/crafts.ts'
+import CraftPreview from '../components/CraftPreview.vue'
 
+var craftList = getCraftList()
 var activityList = getActivityList()
 
-// const { GoogleGenerativeAI } = require("@google/generative-ai");
+// const { GoogleGenerativeAI } = import.meta.glob("@google/generative-ai");
 
 // const genAI = new GoogleGenerativeAI("AIzaSyBG8ljS0XM6hxCOs_krne3o_4yL2o0EbYU");
 // const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
@@ -28,6 +29,9 @@ var activityList = getActivityList()
     :activityDistance=act[1].activityDistance /> 
   </div>
 
-  <NavBar />
+  <div v-for="craft in craftList">
+    <CraftPreview :craftId= craft[1].craftId :craftName = craft[1].craftName 
+    :craftMaterials = craft[1].craftMaterials :craftTime = craft[1].craftTime /> 
+  </div>
 
 </template>
