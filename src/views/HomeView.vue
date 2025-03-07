@@ -9,9 +9,9 @@ var activityList = getActivityList()
 
 // const { GoogleGenerativeAI } = import.meta.glob("@google/generative-ai");
 
-// const genAI = new GoogleGenerativeAI("AIzaSyBG8ljS0XM6hxCOs_krne3o_4yL2o0EbYU");
-// const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+// const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 
+// const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 // const prompt = "Explain how AI works";
 
 // const result = await model.generateContent(prompt);

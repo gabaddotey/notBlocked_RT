@@ -1,12 +1,17 @@
 <script setup lang="ts">
+import { type Tag } from "@/stores/tags.ts"
+import { type PropType } from "vue"
+
 const props = defineProps({
   craftId: Number,
   craftName: String,
   //craftMaterials: String[], //Or tags??
-  craftTime: Number
+  craftTime: Number,
+  craftTags: Array as PropType<Tag[]>
 })
 
 const craftLink = "/craft/"+(props.craftId?.toString())
+
 
 </script>
 
@@ -14,6 +19,9 @@ const craftLink = "/craft/"+(props.craftId?.toString())
   <div>
     <h1>Craft Name: {{ craftName }}</h1>
     <h2>Time: {{ craftTime }} min.</h2>
+    <div v-for="tag in craftTags">
+      <p v-if="tag">{{ Object.keys(tag!)[0] }}</p>
+    </div>
     <button><RouterLink :to= craftLink>Learn More</RouterLink></button>
   </div>
 </template>

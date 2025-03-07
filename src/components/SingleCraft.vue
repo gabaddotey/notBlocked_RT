@@ -2,6 +2,7 @@
 import { useRoute } from 'vue-router'
 import {ref,watch, defineComponent, getCurrentInstance, onMounted } from 'vue'
 import {getCraft, craftList, type Craft} from '@/stores/crafts.ts'
+import { type Tag } from "@/stores/tags.ts"
 
 const router = useRoute()
 

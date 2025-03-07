@@ -6,7 +6,6 @@ export type Answer = {
   multiAnswer?: string[]
 }
 
-
 // store.js
 
 export const store = reactive({
