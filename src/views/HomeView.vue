@@ -8,19 +8,21 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 var craftList = getCraftList()
 var activityList = getActivityList()
 
-const genAI = new GoogleGenerativeAI("AIzaSyBG8ljS0XM6hxCOs_krne3o_4yL2o0EbYU");
+//Home page won't render if this isn't commented out (I think b/c of promise??)
 
-const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-const prompt = `Can you generate a list of thhings to do near Richmond VA? I am interested in outdoor activities. Limit the response to 4 activities. Use the following json format and only return valid json code WITHOUT Markup syntax. Don't include the word json or anything before the opening square bracket.
-{ activity: "Name of activity",
-isFree: "true or false if the activity is free"
-isFreeExplaination: "Explain why the activity is free or not"
-}`
+// const genAI = new GoogleGenerativeAI("AIzaSyBG8ljS0XM6hxCOs_krne3o_4yL2o0EbYU");
 
-const result = await model.generateContent(prompt);
-var text = result.response.text();
+// const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+// const prompt = `Can you generate a list of thhings to do near Richmond VA? I am interested in outdoor activities. Limit the response to 4 activities. Use the following json format and only return valid json code WITHOUT Markup syntax. Don't include the word json or anything before the opening square bracket.
+// { activity: "Name of activity",
+// isFree: "true or false if the activity is free"
+// isFreeExplaination: "Explain why the activity is free or not"
+// }`
 
-console.log(`The output is ${text}`)
+// const result = await model.generateContent(prompt);
+// var text = result.response.text();
+
+// console.log(`The output is ${text}`)
 
 </script>
 

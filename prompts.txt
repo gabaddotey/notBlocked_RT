@@ -1,0 +1,71 @@
+Can you generate a list of things to do near the 23233 zip code? Limit the response to 4 activities max. Use the following json format and only return valid json code WITHOUT Markup syntax. Don't include the word json or anything before the opening square bracket.
+{ activity: "Name of activity",
+activityLocation: "The location of the activity"
+learnMoreLink: "A link to the location's website or somewhere to get more information about the activity"
+activityDistance: "How far away the activity is in miles"
+activityTags: "An array of tags that relate to the activity"
+priceRating: "A number rating 0-4 based on how expensive the activity is with 0 being free"
+price: "The general price in USD or 0 if it's free"
+priceExplaination: "Explain where you got the price from and what the money is for"
+isFree: "true or false if the activity is free"
+isFreeExplaination: "Explain why the activity is free or not"
+}
+
+//Links aren't 100% reliable, one ex. had "...lighthouses" instead 
+of "...lighthouse" which broke the link
+
+Can you generate a list of things to do near the 23233 zip code? Limit the response to 4 activities max. Use the following json format and only return valid json code WITHOUT Markup syntax. Don't include the word json or anything before the opening square bracket.
+{ activity: "Name of activity",
+activityLocation: "The location of the activity"
+activityDistance: "How far away the activity is in miles"
+activityTags: "An array of tags that relate to the activity"
+priceRating: "A number rating 0-4 based on how expensive the activity is with 0 being free"
+price: "The general price in USD or 0 if it's free"
+priceExplaination: "Explain where you got the price from and what the money is for"
+isFree: "true or false if the activity is free"
+isFreeExplaination: "Explain why the activity is free or not"
+}
+
+//Good results, prices still may be unreliable
+
+Can you generate a list of things to do near the 23233 zip code? Limit the response to 4 activities max. Use the following json format and only return valid json code WITHOUT Markup syntax. Don't include the word json or anything before the opening square bracket.
+{ activity: "Name of activity",
+activityLocation: "The location of the activity"
+activityDistance: "How far away the activity is in miles"
+activityTags: "An array of tags that relate to the activity"
+priceRating: "A number rating 0-4 based on how expensive the activity is with 0 being free"
+price: "The exact price in USD if there is one"
+priceExplaination: "Explain where you got the price from and what the money is for"
+isFree: "true or false if the activity is free"
+isFreeExplaination: "Explain why the activity is free or not"
+}
+
+//Still argued that one of the prices were correct even with an 
+explaination despite it being wrong according to my research
+
+Can you generate a list of things to do near the 23233 zip code? Limit the response to 4 activities. Use the following json format and only return valid json code WITHOUT Markup syntax. Don't include the word json or anything before the opening square bracket.
+{ activity: "Name of activity",
+activityLocation: "The location of the activity"
+activityDistance: "How far away the activity is in miles"
+activityTags: "An array of tags that relate to the activity"
+priceRating: "A number rating 0-4 based on how expensive the activity is with 0 being free"
+priceRatingExplaination: "Explain why you gave the activity's price rating"
+price: "The exact price if there is one"
+isFree: "true or false if the activity is free"
+isFreeExplaination: "Explain why the activity is free or not"
+}
+
+//Sometimes only outputs 2 activities??
+
+Can you generate a list of things to do near the 23233 zip code? Limit the response to 4 activities. Use the following json format and only return valid json code WITHOUT Markup syntax. Don't include the word json or anything before the opening square bracket.
+{ activity: "Name of activity",
+activityLocation: "The location of the activity"
+activityDistance: "How far away the activity is in miles"
+activityTags: "An array of tags that relate to the activity"
+priceRating: "A number rating 0-4 based on how expensive the activity is with 0 being free"
+priceRatingExplaination: "Explain why you gave the activity's price rating"
+isFree: "true or false if the activity is free"
+isFreeExplaination: "Explain why the activity is free or not"
+}
+
+//

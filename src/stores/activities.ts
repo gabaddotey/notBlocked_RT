@@ -10,6 +10,8 @@ export interface Activity {
   activityTags: Tag[]
 }
 
+//Reactive with this Map within so the data can be updated from the Gemini JSON?
+
 export const activityList: Map<number, Activity> = new Map<number, Activity>([
   [1, { activityId: 1, activityName: 'FIRST Activity', activityDate:"activityDate of 1st activity", isFree:true, activityLocation:"location 1", activityDistance:111, activityTags: [{"today":true},{"outdoors":true}] }],
   [2, { activityId: 2, activityName: 'SECOND Activity', activityDate:"activityDate of 2nd activity", isFree:false, activityLocation:"location 2", activityDistance:222, activityTags: [{"indoors":true}] }],
