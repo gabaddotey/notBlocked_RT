@@ -1,3 +1,5 @@
+import { type Tag} from "@/stores/tags.ts"
+
 export interface Activity {
   activityId: number
   activityName: string
@@ -5,12 +7,13 @@ export interface Activity {
   isFree: boolean
   activityLocation: string
   activityDistance: number
+  activityTags: Tag[]
 }
 
 export const activityList: Map<number, Activity> = new Map<number, Activity>([
-  [1, { activityId: 1, activityName: 'FIRST Activity', activityDate:"activityDate of 1st activity", isFree:true, activityLocation:"location 1", activityDistance:111}],
-  [2, { activityId: 2, activityName: 'SECOND Activity', activityDate:"activityDate of 2nd activity", isFree:false, activityLocation:"location 2", activityDistance:222}],
-  [3, { activityId: 3, activityName: 'THIRD Activity', activityDate:"activityDate of 3rd activity", isFree:true, activityLocation:"location 3", activityDistance:333}],
+  [1, { activityId: 1, activityName: 'FIRST Activity', activityDate:"activityDate of 1st activity", isFree:true, activityLocation:"location 1", activityDistance:111, activityTags: [{"today":true},{"outdoors":true}] }],
+  [2, { activityId: 2, activityName: 'SECOND Activity', activityDate:"activityDate of 2nd activity", isFree:false, activityLocation:"location 2", activityDistance:222, activityTags: [{"indoors":true}] }],
+  [3, { activityId: 3, activityName: 'THIRD Activity', activityDate:"activityDate of 3rd activity", isFree:true, activityLocation:"location 3", activityDistance:333, activityTags: [{"outdoors":true}]}],
 ])
 
 function getActivityList(): Map<number, Activity> {

@@ -13,7 +13,8 @@ var activityList = getActivityList()
     <EventPreview :activityId= act[1].activityId
     :activityName= act[1].activityName :isFree=act[1].isFree 
     :activityLocation=act[1].activityLocation 
-    :activityDistance=act[1].activityDistance /> 
+    :activityDistance=act[1].activityDistance 
+    :activityTags = act[1].activityTags /> 
   </div>
 
 </template>

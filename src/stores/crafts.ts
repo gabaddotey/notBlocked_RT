@@ -1,5 +1,5 @@
 import { type Tag} from "@/stores/tags.ts"
-
+//Change name to tutorials??
 export interface Craft {
   craftId: number
   craftName: string
