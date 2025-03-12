@@ -1,0 +1,18 @@
+Can you generate a list of upcoming events happening near the 23233 zip code? Limit the response to 4 events max. Use the following json format and only return valid json code WITHOUT Markup syntax. Don't include the word json or anything before the opening square bracket.
+{ eventName: "Name of event"
+eventDate: "When the event is happening"
+isPast: "true or false if the event date is in the past"
+eventLocation: "The location of the event"
+sourceLink: "A link or links to where you found this event"
+learnMoreLink: "A link to the event's website or somewhere to get more information about the activity"
+eventDistance: "How far away the event is in miles"
+eventTags: "An array of tags that relate to the event"
+priceRating: "A number rating 0-4 based on how expensive the event is with 0 being free"
+price: "The general price in USD or 0 if it's free"
+priceExplaination: "Explain where you got the price from and what the money is for"
+isFree: "true or false if the activity is free"
+isFreeExplaination: "Explain why the event is free or not"
+}
+
+// I think this would have worked, but the dataset Gemini is 
+using is from 2024. Update: it works, but I had to tell it the correct date

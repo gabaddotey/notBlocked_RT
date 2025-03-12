@@ -4,10 +4,12 @@ import EventPreview from '../components/EventPreview.vue'
 
 var activityList = getActivityList()
 
+let today = new Date().toLocaleDateString()
+
 </script>
 
 <template>
-  <h1>Events</h1>
+  <h1>Activities</h1>
 
   <div v-for="act in activityList">
     <EventPreview :activityId= act[1].activityId
