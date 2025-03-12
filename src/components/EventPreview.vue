@@ -8,7 +8,8 @@ const props = defineProps({
   activityLocation: String,
   activityDistance: Number,
   isFree:Boolean,
-  activityTags: Array as PropType<Tag[]>
+  activityTags: Array
+  // activityTags: Array as PropType<Tag[]>
 })
 
 const eventLink = "/event/"+(props.activityId?.toString())
@@ -18,7 +19,8 @@ const eventLink = "/event/"+(props.activityId?.toString())
 <template>
   <div>
     <h1>Activity Name: {{ activityName }}</h1>
-    <p v-for="tag in activityTags">{{ Object.keys(tag!)[0] }}</p>
+    <!-- <p v-for="tag in activityTags">{{ Object.keys(tag!)[0] }}</p> -->
+    <p v-for="tag in activityTags">{{ tag }}</p>
 
     <h2>Location: {{ activityLocation }}</h2>
     <h3>Distance: {{ activityDistance }}mi.</h3>
