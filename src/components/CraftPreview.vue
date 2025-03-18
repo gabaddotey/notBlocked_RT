@@ -19,7 +19,7 @@ const craftLink = "/craft/"+(props.craftId?.toString())
     <h1>Craft Name: {{ craftName }}</h1>
     <p v-for="tag in craftTags">{{ Object.keys(tag!)[0] }}</p>
     <h2>Time: {{ craftTime }} min.</h2>
-    <button><RouterLink :to= craftLink>Learn More</RouterLink></button>
+    <button><RouterLink :to= craftLink>Let's Do It!</RouterLink></button>
   </div>
 </template>
 

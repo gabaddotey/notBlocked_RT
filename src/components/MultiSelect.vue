@@ -2,9 +2,11 @@
 import {ref,watch } from 'vue'
 import { useRoute } from 'vue-router'
 import {getQuestion, type Question} from '@/stores/questions.ts'
-import {prefStore, type Answer} from '@/stores/preferences.ts'
+import {usePrefStore, type Answer} from '@/stores/preferences.ts'
+import { storeToRefs } from 'pinia'
 
 const router = useRoute()
+const prefStore = usePrefStore()
 
 var questionTitle: string
 var questionOptions: string[]
@@ -87,7 +89,7 @@ async function saveMultiAnswer(ans: any) {
     console.log("dang")
   }
   
-  // call prefstore to save the answer
+  // call usePrefStore to save the answer
 }
 
 </script>

@@ -30,6 +30,7 @@ export interface Activity {
 //   [3, { activityId: 3, activityName: 'THIRD Activity', activityDate:"activityDate of 3rd activity", isFree:true, activityLocation:"location 3", activityDistance:333, activityTags: [{"outdoors":true}]}],
 // ])
 
+async function geminiStuff() {
 const genAI = new GoogleGenerativeAI("AIzaSyBG8ljS0XM6hxCOs_krne3o_4yL2o0EbYU");
 
 const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
@@ -46,30 +47,34 @@ isFree: "true or false if the activity is free"
 
 const result = await model.generateContent(prompt);
 //console.log("readable text result "+result.response.text())
-var Data = JSON.parse(result.response.text())
+var data = JSON.parse(result.response.text())
 
-console.log(`The output is ${Data}`)
+// console.log(`The output is ${Data}`)
+return data
+}
 
-//console.log(Object.keys(Data).map(k => ({ [k]: Data[k] })))
-const aList = Object.keys(Data).map(k => ({ [k]: Data[k] }) as Activity)
-// export const activityList: Map<string, Activity> = Object.keys(Data).map(k => ({ [k]: Data[k][k] }))
 
-export const activityList: Map<string, Activity> = new Map(Object.keys(Data).map( k => [k,Data[k]] ))
-console.log("Data[1]: "+Data[1].activityName)
-// console.log(typeof Data + " Data type")
-console.log("this is the act list "+activityList)
 
-for(const [key, value] of activityList)
-  console.log(key, "->" ,value)
+async function getActivityList(): Promise< Map<string, Activity> > {
+  const data = await geminiStuff()
+  //console.log(Object.keys(Data).map(k => ({ [k]: Data[k] })))
+  const aList = Object.keys(data).map(k => ({ [k]: data[k] }) as Activity)
+  // export const activityList: Map<string, Activity> = Object.keys(Data).map(k => ({ [k]: Data[k][k] }))
 
-function getActivityList(): Map<string, Activity> {
+  const activityList: Map<string, Activity> = new Map(Object.keys(data).map( k => [k,data[k]] ))
+  console.log("Data[1]: "+data[1].activityName)
+  // console.log(typeof Data + " Data type")
+  console.log("this is the act list "+activityList)
+
+  for(const [key, value] of activityList)
+    console.log(key, "->" ,value)
   return activityList
 }
 
-function getActivity(activityId: string): Activity | undefined {
-  const activity = activityList.get(activityId)
+async function getActivity(activityId: string): Promise < Activity | undefined > {
+  const activity = await getActivityList()
+  return activity.get(activityId)
   // console.log(`ID: ${question.id} title: ${question.activityName}`)
-  return activity
 }
 
 export { getActivityList, getActivity }

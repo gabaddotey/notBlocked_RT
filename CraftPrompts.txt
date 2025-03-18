@@ -1,0 +1,16 @@
+Can you create a list of at-home activities like crafts, origami, simple science experiments, etc? Limit the response to 4 activities max. Use the following json format and only return valid json code WITHOUT Markup syntax. Don't include the word json or anything before the opening square bracket.
+{ activityName: "Name of activity"
+activityMaterials: "What you would need to do the activity"
+activityTime: "How long it will take to do the activity"
+activityTags: "An array of tags that relate to the activity"
+}
+
+//
+
+Can you create a list of at-home activities like crafts, origami, simple science experiments, etc? Limit the response to 4 activities max. Use the following json format and only return valid json code WITHOUT Markup syntax. Don't include the word json or anything before the opening square bracket.
+{ activityName: "Name of activity"
+activityMaterials: "What you would need to do the activity"
+activityTime: "How long it will take to do the activity"
+activityTags: "An array of tags that relate to the activity"
+activityInstructions: "The instructions to do the activity in the format: {Step #: 'instructions', Step #: 'instructions' }"
+}
