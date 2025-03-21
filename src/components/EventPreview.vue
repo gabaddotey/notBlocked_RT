@@ -17,6 +17,7 @@ const eventLink = "/event/"+(props.activityId?.toString())
 </script>
 
 <template>
+  <Suspense>
   <div>
     <h1>Activity Name: {{ activityName }}</h1>
     <!-- <p v-for="tag in activityTags">{{ Object.keys(tag!)[0] }}</p> -->
@@ -27,6 +28,7 @@ const eventLink = "/event/"+(props.activityId?.toString())
     <button><RouterLink :to= eventLink>Learn More</RouterLink></button>
     <h2 class="price">Free? {{ isFree }}</h2>
   </div>
+  </Suspense>
 </template>
 
 <style scoped>

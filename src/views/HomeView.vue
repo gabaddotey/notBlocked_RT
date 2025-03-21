@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import {getActivityList, getActivity} from '@/stores/activities.ts'
+import {getActivityList, getActivity, type Activity, activityList} from '@/stores/activities.ts'
 import EventPreview from '../components/EventPreview.vue'
 import {getCraftList, getCraft} from '@/stores/crafts.ts'
 import CraftPreview from '../components/CraftPreview.vue'
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { Suspense } from 'vue';
+import EventList from '@/components/EventList.vue';
 
-var craftList = getCraftList()
-var activityList = getActivityList()
+const craftList = getCraftList()
 
 //Home page won't render if this isn't commented out (I think b/c of promise??)
 
@@ -27,15 +28,15 @@ var activityList = getActivityList()
 </script>
 
 <template>
-  <h1>Home</h1>
 
-  <div v-for="act in activityList">
-    <EventPreview :activityId= act[1].activityId
-    :activityName= act[1].activityName :isFree=act[1].isFree 
-    :activityLocation=act[1].activityLocation 
-    :activityDistance=act[1].activityDistance
-    :activityTags = act[1].activityTags /> 
-  </div>
+  <h1>Home</h1>
+  <Suspense>
+    <EventList />
+
+    <template #fallback>
+      <b>Loading...</b>
+    </template>
+  </Suspense>
 
   <div v-for="craft in craftList">
     <CraftPreview :craftId= craft[1].craftId :craftName = craft[1].craftName 
