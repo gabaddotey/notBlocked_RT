@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {getActivityList, getActivity, type Activity, activityList} from '@/stores/activities.ts'
+import {getActivityList, getActivity, type Activity} from '@/stores/activities.ts'
 import EventPreview from '../components/EventPreview.vue'
 import {getCraftList, getCraft} from '@/stores/crafts.ts'
 import CraftPreview from '../components/CraftPreview.vue'
