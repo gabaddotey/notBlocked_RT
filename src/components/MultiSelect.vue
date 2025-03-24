@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import {ref,watch } from 'vue'
+import {ref,watch, useTemplateRef } from 'vue'
 import { useRoute } from 'vue-router'
 import {getQuestion, type Question} from '@/stores/questions.ts'
 import {usePrefStore, type Answer} from '@/stores/preferences.ts'
 import { storeToRefs } from 'pinia'
+
 
 const router = useRoute()
 const prefStore = usePrefStore()
@@ -17,6 +18,14 @@ var question: Question
 
 const loading = ref(false)
 const error = ref(null)
+
+console.log("useprefstore: "+prefStore.preferences)
+watch(() => prefStore.preferences.values, debuglog)
+
+function debuglog(){
+  console.log("prefStore changed")
+  console.log(prefStore.$state)
+}
 
 const checkedAnswers = ref([])
 watch(() => checkedAnswers.value, saveMultiAnswer)
@@ -33,6 +42,7 @@ async function fetchData(id: string| string[]) {
     console.log(`id was not a string: ${id}`)
     return;
   }
+
   console.log(`The id passed in was: ${id}`)
   const questionId: number = parseInt(id)
   question = getQuestion(questionId)!
@@ -98,11 +108,11 @@ async function saveMultiAnswer(ans: any) {
     <h1>Title:{{ questionTitle }}</h1>
     <h3>Path ID:{{ router.params.id }}</h3>
   
-    <div class="wrapper" v-if="question.type === 'multi'" v-for="option in questionOptions" key="option.id">
-      <input type="checkbox" :value="{option}" v-model="checkedAnswers">{{ option }}</input>
+    <div class="wrapper" v-if="question.type === 'multi'" v-for="option in questionOptions" >
+      <input ref="option.id" type="checkbox" :value="{option}" v-model="checkedAnswers">{{ option }}</input>
     </div> 
-    <div class="wrapper" v-else v-for="option in questionOptions" :key="option">
-      <input type="radio" :value="{option}" v-model="singleAnswer">{{ option }}</input>
+    <div class="wrapper" v-else v-for="option in questionOptions" >
+      <input :ref="option" type="radio" :value="{option}" v-model="singleAnswer">{{ option }}</input>
     </div>
 
     <!-- <div class="wrapper" v-if="!multiQuestion" v-for="option in questionOptions" key="option.id">

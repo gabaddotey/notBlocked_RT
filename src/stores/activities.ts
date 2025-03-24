@@ -72,6 +72,7 @@ async function getActivityList(): Promise< Map<string, Activity> > {
 
   for(const [key, value] of activityList)
     console.log(key, "->" ,value)
+  
   return activityList
 
 }
