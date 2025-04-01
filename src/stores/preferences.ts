@@ -1,7 +1,8 @@
 import { parseConfigFileTextToJson } from 'typescript'
-import { ref, reactive } from 'vue'
+import { ref, reactive, type UnwrapNestedRefs, shallowRef } from 'vue'
 import { defineStore } from 'pinia'
 import { useLocalStorage } from '@vueuse/core' 
+import { type Ref, type UnwrapRef } from 'vue'
 
 export type Answer = { 
   singleAnswer?: string 
@@ -10,24 +11,24 @@ export type Answer = {
 
 export const usePrefStore = defineStore('preferences', {
   state: () => ({
-    preferences : useLocalStorage("preferences", new Map<number, Answer>())
+    preferences: useLocalStorage('preferences', new Map<number, Answer>()).value
     //address
   }),
   hydrate(storeState, initState){
-    storeState.preferences = useLocalStorage('preferences', new Map<number, Answer>())
+    storeState.preferences = useLocalStorage('preferences', new Map<number, Answer>()).value
   },
   getters: { },
   actions: {
     storeAnswer(questionId: number, answer: Answer) {
-      console.log("Storing this answer: "+ questionId + " " + answer)
-      console.log("New preferences:")
-      for(const [key, value] of this.preferences)
-        console.log(key, "->" ,value)
+      console.log("storeAnswer function: q"+ questionId + " " + JSON.stringify(answer))
       this.preferences.set(questionId, answer)
+      for(const [key, value] of this.preferences){
+        console.log(key, "->" ,value)
+      }
     },
     getAnswer(questionId: number): Answer | undefined {
-      console.log("this.pref return: "+this.preferences)
-      console.log("getAnswer return: "+this.preferences.get(questionId))
+      // console.log("this.pref return: "+this.preferences)
+      console.log("getAnswer return: q"+questionId+ " " +JSON.stringify(this.preferences.get(questionId)))
       return this.preferences.get(questionId)
     },
     asJson(): string { 
