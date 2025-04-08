@@ -47,4 +47,32 @@ function getQuestion(questionId: number): Question | undefined {
   return question
 }
 
+export function getPreferencesForGemini(){
+  console.log("getting prefs for Gemini")
+  const prefArr = []
+  const qList = questionList
+  for(const question of qList.values()){
+    const preference = prepareQuestionForGemini(question)
+    if(preference){
+      console.log(preference)
+      prefArr.push(preference)
+    }
+  }
+  return prefArr
+}
+
+function prepareQuestionForGemini(question: Question): string | undefined{
+  const prefStore = usePrefStore()
+  const answer = prefStore.getAnswer(question.id) 
+  if(answer === undefined){
+    return
+  } 
+  if(question.type == "multi"){
+    return `${question.questionTitle}: ${answer.multiAnswer}`
+  }
+  if(question.type == "single") {
+    return `${question.questionTitle}: ${answer.singleAnswer}`
+  }
+}
+
 export { getQuestion }

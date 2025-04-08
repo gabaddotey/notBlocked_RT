@@ -22,14 +22,18 @@ export const usePrefStore = defineStore('preferences', {
     storeAnswer(questionId: number, answer: Answer) {
       console.log("storeAnswer function: q"+ questionId + " " + JSON.stringify(answer))
       this.preferences.set(questionId, answer)
-      for(const [key, value] of this.preferences){
-        console.log(key, "->" ,value)
-      }
+      // for(const [key, value] of this.preferences){
+      //   console.log(key, "->" ,value)
+      // }
     },
     getAnswer(questionId: number): Answer | undefined {
-      // console.log("this.pref return: "+this.preferences)
-      console.log("getAnswer return: q"+questionId+ " " +JSON.stringify(this.preferences.get(questionId)))
+      // console.log("getting answer: q"+ questionId)
+      // console.log("getAnswer return: q"+questionId+ " " +JSON.stringify(this.preferences.get(questionId)))
       return this.preferences.get(questionId)
+    },
+    removeAnswer(questionId:number){
+      console.log("deleting answer: q"+ questionId)
+      this.preferences.delete(questionId)
     },
     asJson(): string { 
       return JSON.stringify(this.preferences)

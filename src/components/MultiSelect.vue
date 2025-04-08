@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref,watch, useTemplateRef } from 'vue'
 import { useRoute } from 'vue-router'
-import {getQuestion, questionList, type Question} from '@/stores/questions.ts'
+import {getQuestion, questionList, getPreferencesForGemini, type Question} from '@/stores/questions.ts'
 import {usePrefStore, type Answer} from '@/stores/preferences.ts'
 import { storeToRefs } from 'pinia'
 
@@ -87,6 +87,10 @@ async function saveSingleAnswer(ans: any) {
   try{
     // console.log(`saving... ${JSON.stringify(ans)}`)
     console.log("Question id in saveSingleAnswer: "+question.id)
+    if(ans === ""){
+      prefStore.removeAnswer(question.id)
+      return
+    }
     const answer:Answer = {singleAnswer: ans}
     prefStore.storeAnswer(question.id, answer)
     
@@ -102,9 +106,9 @@ async function saveMultiAnswer(ans: any) {
     // console.log(`saving... ${JSON.stringify(ans)}`)
     console.log("Question id in saveMultiAnswer: "+question.id)
     const answer:Answer = {multiAnswer: ans}
+    //TODO: remove if empty
     console.log(JSON.stringify(answer)+" (Multi) this is: answer")
     prefStore.storeAnswer(question.id, answer)
-    
   } catch {
     console.log("dang")
   }
@@ -131,7 +135,8 @@ async function saveMultiAnswer(ans: any) {
     <div>
       <button v-if="nextQuestion !== '/quiz/'+(questionList.size+1)"><RouterLink :to="nextQuestion">Next</RouterLink></button>
       <button v-if="backQuestion !== '/quiz/0'"><RouterLink :to="backQuestion">Back</RouterLink></button>
-      <button><RouterLink to="/home">Skip for now</RouterLink></button>
+      <button v-if="nextQuestion !== '/quiz/'+(questionList.size+1)"><RouterLink to="/home">Skip for now</RouterLink></button>
+      <button v-if="nextQuestion === '/quiz/'+(questionList.size+1)"><RouterLink to="/home">Sumbit!</RouterLink></button>
     </div>
 
     <div v-for = "answer in checkedAnswers">

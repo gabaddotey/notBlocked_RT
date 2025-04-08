@@ -1,5 +1,7 @@
 import { type Tag} from "@/stores/tags.ts"
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import {usePrefStore, type Answer} from '@/stores/preferences.ts'
+import { getPreferencesForGemini } from "./questions";
 
 //Old
 // export interface Activity {
@@ -32,27 +34,34 @@ export interface Activity {
 //   [2, { activityId: 2, activityName: 'SECOND Activity', activityDate:"activityDate of 2nd activity", isFree:false, activityLocation:"location 2", activityDistance:222, activityTags: [] }]
 // ])
 
+
 async function geminiGenerate() {
-const genAI = new GoogleGenerativeAI("AIzaSyBG8ljS0XM6hxCOs_krne3o_4yL2o0EbYU");
+  const genAI = new GoogleGenerativeAI("AIzaSyBG8ljS0XM6hxCOs_krne3o_4yL2o0EbYU");
+  const prefArr = getPreferencesForGemini()
 
-const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-const prompt = `Can you generate a list of things to do near the 23233 zip code? Limit the response to 2 activities max. Use the following json format and only return valid json code WITHOUT Markup syntax. Don't include the word json or anything before the opening square bracket.
-{ activityName: "Name of activity",
-activityLocation: "The location of the activity"
-learnMoreLink: "A link to the location's website or somewhere to get more information about the activity"
-activityDistance: "How far away the activity is in miles as a number"
-activityTags: "An array of tags that relate to the activity"
-priceRating: "A number rating 0-4 based on how expensive the activity is with 0 being free"
-price: "The general price in USD or 0 if it's free"
-isFree: "true or false if the activity is free"
-}`
+  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+  const prompt = `Can you generate a list of things to do near the 23233 zip code? Use the following list as the target user's preferences for the activities they like:
+  ${prefArr}
+  Limit the response to 4 activities max. Use the json format below and only return valid json code WITHOUT including the word json or anything before the opening square bracket, or any additional "\`" characters. The response should begin with a square bracket and end with a closing square bracket.
+  { activityName: "Name of activity",
+  activityLocation: "The location of the activity"
+  learnMoreLink: "A link to the location's website or somewhere to get more information about the activity"
+  activityDistance: "How far away the activity is in miles as a number type"
+  activityTags: "An array of tags that relate to the activity"
+  priceRating: "A number rating 0-4 based on how expensive the activity is with 0 being free"
+  price: "The general price in USD or 0 if it's free"
+  priceExplaination: "Explain where you got the price from and what the money is for"
+  isFree: "a boolean true or false if the activity is free"
+  isFreeExplaination: "Explain why the activity is free or not"
+  }`
+  // ${prefArr}`
 
-const result = await model.generateContent(prompt);
-//console.log("readable text result "+result.response.text())
-var data = JSON.parse(result.response.text())
+  const result = await model.generateContent(prompt);
+  console.log("readable text result "+result.response.text())
+  var data = JSON.parse(result.response.text())
 
-// console.log(`The output is ${Data}`)
-return data
+  // console.log(`The output is ${Data}`)
+  return data
 }
 
 // async function getActivityList(): Promise< Map<number, Activity> > {
@@ -62,7 +71,6 @@ return data
 async function getActivityList(): Promise< Map<string, Activity> > {
   const data = await geminiGenerate()
   //console.log(Object.keys(Data).map(k => ({ [k]: Data[k] })))
-  const aList = Object.keys(data).map(k => ({ [k]: data[k] }) as Activity)
   // export const activityList: Map<string, Activity> = Object.keys(Data).map(k => ({ [k]: Data[k][k] }))
 
   const activityList: Map<string, Activity> = new Map(Object.keys(data).map( k => [k,data[k]] ))
