@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref,watch, useTemplateRef } from 'vue'
 import { useRoute } from 'vue-router'
-import {getQuestion, type Question} from '@/stores/questions.ts'
+import {getQuestion, questionList, type Question} from '@/stores/questions.ts'
 import {usePrefStore, type Answer} from '@/stores/preferences.ts'
 import { storeToRefs } from 'pinia'
 
@@ -25,17 +25,21 @@ function debuglog(){
 }
 
 const checkedAnswers = ref<string[]>([])
-watch(() => checkedAnswers.value, saveMultiAnswer)
 
-const singleAnswer = ref(null)
-watch(() => singleAnswer.value, saveSingleAnswer)
+const singleAnswer = ref("")
 
 
 watch(() => router.params.id, fetchData, { immediate: true })
 
 async function fetchData(id: string | string[]) {
   checkedAnswers.value = []
+  singleAnswer.value = ""
+
   console.log("fetching data")
+  
+  watch(() => checkedAnswers.value, saveMultiAnswer)
+
+  watch(() => singleAnswer.value, saveSingleAnswer)
 
   if(typeof id !== 'string'){
     // Could redirect 
@@ -45,6 +49,7 @@ async function fetchData(id: string | string[]) {
 
   const questionId: number = parseInt(id)
   question = getQuestion(questionId)!
+  console.log("question " + JSON.stringify(question))
   //boolean is undefined unles I put it here???
   // multiQuestion = question.type
   //error.value = question.value == null
@@ -53,9 +58,15 @@ async function fetchData(id: string | string[]) {
   const answer = prefStore.getAnswer(questionId)
   // If answer is not undefined, that means they already answered it.
   // Put the answer in the checkedAnswers array
+
+  //TODO: switch to use .isChecked
   if(answer?.multiAnswer){
-    checkedAnswers.value = answer.multiAnswer
-    
+    console.log("this is a multiANsw"+ JSON.stringify(answer))
+    checkedAnswers.value = answer.multiAnswer 
+  }
+  if(answer?.singleAnswer){
+    console.log("this is a single ans"+ JSON.stringify(answer))
+    singleAnswer.value = answer.singleAnswer
   }
 
   try {
@@ -72,28 +83,32 @@ async function fetchData(id: string | string[]) {
 }
 
 async function saveSingleAnswer(ans: any) {
-  if (singleAnswer.value === null || singleAnswer.value["option"] === null) {
-    console.log(`Dang singleAnswer is null`)
-    return
-  }
-  const choice = singleAnswer.value["option"]
-  const answer:Answer = {singleAnswer: choice}
-  prefStore.storeAnswer(question.id, answer)
-  
-}
-
-async function saveMultiAnswer(ans: any) {
-
+ 
   try{
-    console.log(`saving... ${JSON.stringify(ans)}`)
-    console.log("Question id in saveMultiAnswer: "+question.id)
-    const answer:Answer = {multiAnswer: ans}
+    // console.log(`saving... ${JSON.stringify(ans)}`)
+    console.log("Question id in saveSingleAnswer: "+question.id)
+    const answer:Answer = {singleAnswer: ans}
     prefStore.storeAnswer(question.id, answer)
     
   } catch {
     console.log("dang")
   }
-  //checkedAnswers.value.splice(0)
+
+}
+
+async function saveMultiAnswer(ans: any) {
+
+  try{
+    // console.log(`saving... ${JSON.stringify(ans)}`)
+    console.log("Question id in saveMultiAnswer: "+question.id)
+    const answer:Answer = {multiAnswer: ans}
+    console.log(JSON.stringify(answer)+" (Multi) this is: answer")
+    prefStore.storeAnswer(question.id, answer)
+    
+  } catch {
+    console.log("dang")
+  }
+  //Answers.value.splice(0)
   // call usePrefStore to save the answer
 }
 
@@ -105,22 +120,25 @@ async function saveMultiAnswer(ans: any) {
     
     <div class="wrapper" v-if="question.type === 'multi'" v-for="option in question.questionOptions" >
       <input ref="option.id" type="checkbox" :value="option.value" :checked="option.isChecked" v-model="checkedAnswers">{{ option.value }}</input>
-    </div> 
+    </div>
     <div class="wrapper" v-else v-for="option in question.questionOptions" >
-      <input ref="option" type="radio" :value="option.value" v-model="singleAnswer">{{ option.value }}</input>
+      <input ref="option" type="radio" :value="option.value" :checked="option.isChecked" v-model="singleAnswer">{{ option.value }}</input>
     </div>
 
     <h3>This is the nextQuestion link: {{ nextQuestion }}</h3>
     <h3>This is the backQuestion link: {{ backQuestion }}</h3>
 
     <div>
-      <button><RouterLink :to="nextQuestion">Next</RouterLink></button>
+      <button v-if="nextQuestion !== '/quiz/'+(questionList.size+1)"><RouterLink :to="nextQuestion">Next</RouterLink></button>
       <button v-if="backQuestion !== '/quiz/0'"><RouterLink :to="backQuestion">Back</RouterLink></button>
       <button><RouterLink to="/home">Skip for now</RouterLink></button>
     </div>
 
     <div v-for = "answer in checkedAnswers">
       checked answer: {{ answer }}
+    </div>
+    <div v-if="singleAnswer">
+      single answer: {{ singleAnswer }}
     </div>
 </template>
 

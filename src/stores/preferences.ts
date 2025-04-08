@@ -5,7 +5,7 @@ import { useLocalStorage } from '@vueuse/core'
 import { type Ref, type UnwrapRef } from 'vue'
 
 export type Answer = { 
-  singleAnswer?: string 
+  singleAnswer?: string
   multiAnswer?: string[]
 }
 

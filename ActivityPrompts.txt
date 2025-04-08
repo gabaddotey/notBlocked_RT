@@ -1,3 +1,34 @@
+Generate a JSON list of user preferences for what types of activities they like using the json format below and only return valid json code WITHOUT Markup syntax. "multiAnswer" and "singleAnswer" indicate whether the question should have one answer or multiple. Don't include the word json or anything before the opening square bracket.
+[[1,{"singleAnswer":["preference 1"]}],[2,{"multiAnswer":["preference 1","preference 2"]}]]
+
+Can you generate a list of things to do near the 23233 zip code? Use the following list as the target user's preferences for the activities they like:
+[
+[1, {"singleAnswer": ["A Mix of Both"]}],
+[2, {"singleAnswer": ["Moderate Pace"]}],
+[3, {"multiAnswer": ["Movies / TV", "Board Games / Puzzles", "Cooking / Baking"]}],
+[4, {"multiAnswer": ["Hiking / Nature Walks", "Parks / Picnics", "Gardening"]}],
+[5, {"multiAnswer": ["Photography / Videography", "Crafting / DIY", "Digital Design"]}],
+[6, {"singleAnswer": ["Small Groups"]}],
+[7, {"multiAnswer": ["Live Music / Concerts", "Cinema / Film Screenings", "Festivals / Fairs"]}],
+[8, {"multiAnswer": ["Workshops / Classes", "Documentaries", "Learning a New Hobby"]}],
+[9, {"multiAnswer": ["Weekend Afternoons", "Weekend Evenings", "Weekday Evenings"]}],
+[10, {"singleAnswer": ["Sometimes Kid-friendly"]}]
+]
+Limit the response to 4 activities max. Use the json format below and only return valid json code WITHOUT Markup syntax. Don't include the word json or anything before the opening square bracket.
+{ activity: "Name of activity",
+activityLocation: "The location of the activity"
+learnMoreLink: "A link to the location's website or somewhere to get more information about the activity"
+activityDistance: "How far away the activity is in miles"
+activityTags: "An array of tags that relate to the activity"
+priceRating: "A number rating 0-4 based on how expensive the activity is with 0 being free"
+price: "The general price in USD or 0 if it's free"
+priceExplaination: "Explain where you got the price from and what the money is for"
+isFree: "true or false if the activity is free"
+isFreeExplaination: "Explain why the activity is free or not"
+}
+
+//
+
 Can you generate a list of things to do near the 23233 zip code? Limit the response to 4 activities max. Use the following json format and only return valid json code WITHOUT Markup syntax. Don't include the word json or anything before the opening square bracket.
 { activity: "Name of activity",
 activityLocation: "The location of the activity"
