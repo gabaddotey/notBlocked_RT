@@ -1,7 +1,7 @@
 import { type Tag} from "@/stores/tags.ts"
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import {usePrefStore, type Answer} from '@/stores/preferences.ts'
-import { getPreferencesForGemini } from "./questions";
+import { getPreferencesForGemini, getZipcode } from "./questions";
 
 //Old
 // export interface Activity {
@@ -20,7 +20,8 @@ export interface Activity {
   activityLocation: string
   learnMoreLink: string
   activityDistance: number
-  activityTags: []
+  filterTags: string[]
+  activityTags: string[]
   priceRating: number
   price: number | string
   isFree: boolean
@@ -38,15 +39,17 @@ export interface Activity {
 async function geminiGenerate() {
   const genAI = new GoogleGenerativeAI("AIzaSyBG8ljS0XM6hxCOs_krne3o_4yL2o0EbYU");
   const prefArr = getPreferencesForGemini()
-
+  const filterTags = ["indoor", "outdoor", "kid-friendly", "active"]
   const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-  const prompt = `Can you generate a list of things to do near the 23233 zip code? Use the following list as the target user's preferences for the activities they like:
+  const zipcode = getZipcode()
+  const prompt = `Can you generate a list of things to do near the ${zipcode} zip code? Use the following list as the target user's preferences for the activities they like:
   ${prefArr}
   Limit the response to 4 activities max. Use the json format below and only return valid json code WITHOUT including the word json or anything before the opening square bracket, or any additional "\`" characters. The response should begin with a square bracket and end with a closing square bracket.
   { activityName: "Name of activity",
   activityLocation: "The location of the activity"
   learnMoreLink: "A link to the location's website or somewhere to get more information about the activity"
   activityDistance: "How far away the activity is in miles as a number type"
+  filterTags: "An array of tags that relate to the activity, from the following options: ${filterTags}. kid-friendly should be applied to anything that is usually liked by kids, free should be based on the price property below " 
   activityTags: "An array of tags that relate to the activity"
   priceRating: "A number rating 0-4 based on how expensive the activity is with 0 being free"
   price: "The general price in USD or 0 if it's free"
@@ -57,7 +60,7 @@ async function geminiGenerate() {
   // ${prefArr}`
 
   const result = await model.generateContent(prompt);
-  console.log("readable text result "+result.response.text())
+  // console.log("readable text result "+result.response.text())
   var data = JSON.parse(result.response.text())
 
   // console.log(`The output is ${Data}`)

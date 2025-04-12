@@ -3,7 +3,7 @@ import {ref,watch, useTemplateRef } from 'vue'
 import { useRoute } from 'vue-router'
 import {getQuestion, questionList, getPreferencesForGemini, type Question} from '@/stores/questions.ts'
 import {usePrefStore, type Answer} from '@/stores/preferences.ts'
-import { storeToRefs } from 'pinia'
+import { onBeforeRouteLeave } from 'vue-router'
 
 const router = useRoute()
 const prefStore = usePrefStore()
@@ -16,18 +16,10 @@ var question: Question
 const loading = ref(false)
 const error = ref(null)
 
-console.log("useprefstore: "+JSON.stringify(prefStore.preferences))
-watch(() => prefStore.preferences, debuglog)
-
-function debuglog(){
-  console.log("prefStore changed")
-  console.log(prefStore.$state)
-}
-
 const checkedAnswers = ref<string[]>([])
 
 const singleAnswer = ref("")
-
+const inputAnswer = ref("")
 
 watch(() => router.params.id, fetchData, { immediate: true })
 
@@ -41,6 +33,8 @@ async function fetchData(id: string | string[]) {
 
   watch(() => singleAnswer.value, saveSingleAnswer)
 
+  watch(() => inputAnswer.value, saveInputAnswer)
+
   if(typeof id !== 'string'){
     // Could redirect 
     console.log(`id was not a string: ${id}`)
@@ -49,7 +43,7 @@ async function fetchData(id: string | string[]) {
 
   const questionId: number = parseInt(id)
   question = getQuestion(questionId)!
-  console.log("question " + JSON.stringify(question))
+  // console.log("question " + JSON.stringify(question))
   //boolean is undefined unles I put it here???
   // multiQuestion = question.type
   //error.value = question.value == null
@@ -61,12 +55,16 @@ async function fetchData(id: string | string[]) {
 
   //TODO: switch to use .isChecked
   if(answer?.multiAnswer){
-    console.log("this is a multiANsw"+ JSON.stringify(answer))
+    // console.log("this is a multiANsw"+ JSON.stringify(answer))
     checkedAnswers.value = answer.multiAnswer 
   }
   if(answer?.singleAnswer){
-    console.log("this is a single ans"+ JSON.stringify(answer))
+    // console.log("this is a single ans"+ JSON.stringify(answer))
     singleAnswer.value = answer.singleAnswer
+  }
+  if(answer?.inputAnswer){
+    // console.log("this is a single ans"+ JSON.stringify(answer))
+    inputAnswer.value = answer.inputAnswer
   }
 
   try {
@@ -86,7 +84,6 @@ async function saveSingleAnswer(ans: any) {
  
   try{
     // console.log(`saving... ${JSON.stringify(ans)}`)
-    console.log("Question id in saveSingleAnswer: "+question.id)
     if(ans === ""){
       prefStore.removeAnswer(question.id)
       return
@@ -100,11 +97,27 @@ async function saveSingleAnswer(ans: any) {
 
 }
 
+async function saveInputAnswer(ans: any) {
+ 
+ try{
+   // console.log(`saving... ${JSON.stringify(ans)}`)
+   if(ans === ""){
+     prefStore.removeAnswer(question.id)
+     return
+   }
+   const answer:Answer = {inputAnswer: ans}
+   prefStore.storeAnswer(question.id, answer)
+   
+ } catch {
+   console.log("dang")
+ }
+
+}
+
 async function saveMultiAnswer(ans: any) {
 
   try{
     // console.log(`saving... ${JSON.stringify(ans)}`)
-    console.log("Question id in saveMultiAnswer: "+question.id)
     const answer:Answer = {multiAnswer: ans}
     //TODO: remove if empty
     console.log(JSON.stringify(answer)+" (Multi) this is: answer")
@@ -116,17 +129,43 @@ async function saveMultiAnswer(ans: any) {
   // call usePrefStore to save the answer
 }
 
+  const popup = document.getElementById("popup")
+
+  onBeforeRouteLeave((to, from) => {
+    let zip = prompt("What's your zip code?")
+    if(zip !=null){
+      console.log("There is a zip now")
+    }
+    // popup?.showPopover()
+    // return true
+  })
+  
+
+  function hidePopup(){
+	  popup?.hidePopover()
+  }
+
 </script>
 
 <template>
     <h1>Title:{{ question.questionTitle }}</h1>
     <h3>Path ID:{{ router.params.id }}</h3>
     
+    <dialog popover id="popup">
+      <div class="wrapper">
+        <h2>What's your zip code?</h2>
+        <input>???</input>
+      </div>
+    </dialog>
+
     <div class="wrapper" v-if="question.type === 'multi'" v-for="option in question.questionOptions" >
       <input ref="option.id" type="checkbox" :value="option.value" :checked="option.isChecked" v-model="checkedAnswers">{{ option.value }}</input>
     </div>
-    <div class="wrapper" v-else v-for="option in question.questionOptions" >
+    <div class="wrapper" v-if="question.type === 'single'" v-for="option in question.questionOptions" >
       <input ref="option" type="radio" :value="option.value" :checked="option.isChecked" v-model="singleAnswer">{{ option.value }}</input>
+    </div>
+    <div class="wrapper" v-if="question.type === 'input'">
+      <input type="number" v-model="inputAnswer"></input>
     </div>
 
     <h3>This is the nextQuestion link: {{ nextQuestion }}</h3>
@@ -136,7 +175,7 @@ async function saveMultiAnswer(ans: any) {
       <button v-if="nextQuestion !== '/quiz/'+(questionList.size+1)"><RouterLink :to="nextQuestion">Next</RouterLink></button>
       <button v-if="backQuestion !== '/quiz/0'"><RouterLink :to="backQuestion">Back</RouterLink></button>
       <button v-if="nextQuestion !== '/quiz/'+(questionList.size+1)"><RouterLink to="/home">Skip for now</RouterLink></button>
-      <button v-if="nextQuestion === '/quiz/'+(questionList.size+1)"><RouterLink to="/home">Sumbit!</RouterLink></button>
+      <button v-if="nextQuestion === '/quiz/'+(questionList.size+1)"><RouterLink to="/home">Done!</RouterLink></button>
     </div>
 
     <div v-for = "answer in checkedAnswers">

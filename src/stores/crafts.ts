@@ -15,10 +15,10 @@ export const craftList: Map<number, Craft> = new Map<number, Craft>([
 ])
 
 //Testing how I can extract the name of the tag w/o the entire object
-const excraft = getCraft(1)?.craftTags[0]
-var TheName = Object.keys(excraft!)
-console.log(excraft)
-console.log("Should say tag name: "+ TheName)
+// const excraft = getCraft(1)?.craftTags[0]
+// var TheName = Object.keys(excraft!)
+// console.log(excraft)
+// console.log("Should say tag name: "+ TheName)
 
 function getCraftList(): Map<number, Craft> {
   return craftList

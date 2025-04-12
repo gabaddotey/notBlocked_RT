@@ -10,10 +10,10 @@ export interface Question {
   questionTitle: string
   questionOptions: QuestionOption[] //make type with checked property
   nextQuestion: number | null
-  type: "single" | "multi"
+  type: "single" | "multi" | "input"
 }
 
-function newQuestion(id: number, questionTitle: string, options: string[], nextQuestion: number|null, type: "single" | "multi"): Question {
+function newQuestion(id: number, questionTitle: string, options: string[], nextQuestion: number|null, type: "single" | "multi" | "input"): Question {
   const questionOptions = options.map(option => ({ value: option, isChecked: false }))
   return { id, questionTitle, questionOptions, nextQuestion, type }
 }
@@ -28,7 +28,8 @@ export const questionList: Map<number, Question> = new Map<number, Question>([
   [7, newQuestion(7, 'What kind of entertainment experiences do you seek out? (Select all that apply)', ["Live Music / Concerts", "Cinema / Film Screenings", "Theatre / Live Shows", "Comedy Clubs", "Sporting Events", "Festivals / Fairs", "Quiet Evenings", "None"], 8, "multi")],
   [8, newQuestion(8, 'Are you interested in learning or skill-based activities? (Select all that apply)', ["Workshops / Classes", "Lectures / Talks", "Documentaries", "Educational Games / Apps", "Learning a New Hobby", "Visiting Historical Sites", "Not Currently Interested"], 9, "multi")],
   [9, newQuestion(9, 'When are you most often looking to do activities?', ["Weekday Mornings", "Weekday Afternoons", "Weekday Evenings", "Weekend Mornings", "Weekend Afternoons", "Weekend Evenings", "Anytime"], 10, "multi")],
-  [10, newQuestion(10, 'Do your activity choices often need to be kid-friendly?', ["Yes, Always", "Yes, Often", "Sometimes", "Rarely", "Never"], 11, "single")]
+  [10, newQuestion(10, 'Do your activity choices often need to be kid-friendly?', ["Yes, Always", "Yes, Often", "Sometimes", "Rarely", "Never"], 11, "single")],
+  [11, newQuestion(11, 'What is your zip code', [], null, "input")]
 ])
 
 function getQuestion(questionId: number): Question | undefined {
@@ -53,12 +54,21 @@ export function getPreferencesForGemini(){
   const qList = questionList
   for(const question of qList.values()){
     const preference = prepareQuestionForGemini(question)
-    if(preference){
+    if(preference !== undefined && !preference?.includes("zip code")){
       console.log(preference)
       prefArr.push(preference)
     }
   }
   return prefArr
+}
+
+export function getZipcode(){
+  const prefStore = usePrefStore()
+  const answer = prefStore.getAnswer(11)
+  if(answer === undefined || answer.inputAnswer === undefined){
+    return "23059"
+  }
+  return answer.inputAnswer
 }
 
 function prepareQuestionForGemini(question: Question): string | undefined{

@@ -6,6 +6,7 @@ import { type Ref, type UnwrapRef } from 'vue'
 
 export type Answer = { 
   singleAnswer?: string
+  inputAnswer?: string
   multiAnswer?: string[]
 }
 

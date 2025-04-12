@@ -1,6 +1,8 @@
 Generate a JSON list of user preferences for what types of activities they like using the json format below and only return valid json code WITHOUT Markup syntax. "multiAnswer" and "singleAnswer" indicate whether the question should have one answer or multiple. Don't include the word json or anything before the opening square bracket.
 [[1,{"singleAnswer":["preference 1"]}],[2,{"multiAnswer":["preference 1","preference 2"]}]]
 
+//
+
 Can you generate a list of things to do near the 23233 zip code? Use the following list as the target user's preferences for the activities they like:
 [
 [1, {"singleAnswer": ["A Mix of Both"]}],
