@@ -27,6 +27,8 @@ export interface Activity {
   isFree: boolean
 }
 
+export const filterTags = ["indoor", "outdoor", "kid-friendly", "free", "daytime", "evening", "walk-in", "requires booking"]
+
 //Reactive with this Map within so the data can be updated from the Gemini JSON?
 
 
@@ -39,12 +41,11 @@ export interface Activity {
 async function geminiGenerate() {
   const genAI = new GoogleGenerativeAI("AIzaSyBG8ljS0XM6hxCOs_krne3o_4yL2o0EbYU");
   const prefArr = getPreferencesForGemini()
-  const filterTags = ["indoor", "outdoor", "kid-friendly", "active"]
   const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
   const zipcode = getZipcode()
   const prompt = `Can you generate a list of things to do near the ${zipcode} zip code? Use the following list as the target user's preferences for the activities they like:
   ${prefArr}
-  Limit the response to 4 activities max. Use the json format below and only return valid json code WITHOUT including the word json or anything before the opening square bracket, or any additional "\`" characters. The response should begin with a square bracket and end with a closing square bracket.
+  Limit the response to 4 activities max. Use the json format below and only return valid json code WITHOUT including the word json or anything before the opening square bracket, or any "\`" characters. The response should begin with a square bracket and end with a closing square bracket.
   { activityName: "Name of activity",
   activityLocation: "The location of the activity"
   learnMoreLink: "A link to the location's website or somewhere to get more information about the activity"
@@ -70,13 +71,14 @@ async function geminiGenerate() {
 // async function getActivityList(): Promise< Map<number, Activity> > {
 //   return activityList
 // }
+export var activityList: Map<string, Activity> = new Map()
 
 async function getActivityList(): Promise< Map<string, Activity> > {
   const data = await geminiGenerate()
   //console.log(Object.keys(Data).map(k => ({ [k]: Data[k] })))
   // export const activityList: Map<string, Activity> = Object.keys(Data).map(k => ({ [k]: Data[k][k] }))
 
-  const activityList: Map<string, Activity> = new Map(Object.keys(data).map( k => [k,data[k]] ))
+  activityList = new Map(Object.keys(data).map( k => [k,data[k]] ))
   console.log("Data[1]: "+data[1].activityName)
   // console.log(typeof Data + " Data type")
   console.log("this is the act list "+activityList)

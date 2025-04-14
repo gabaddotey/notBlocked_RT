@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import {ref,watch, defineComponent, getCurrentInstance, onMounted } from 'vue'
-import {getActivity, activityList, type Activity} from '@/stores/activities.ts'
+import {getActivity, type Activity} from '@/stores/activities.ts'
 
 const router = useRoute()
 
@@ -21,13 +21,12 @@ async function fetchData(id: string| string[] | number) {
   console.log(`The id passed in was: ${id}`)
   //const activityId: number = parseInt(id)
   id = parseInt(id.toString())
-  activity = getActivity(id)!
+  activity = await getActivity(id.toString())! as Activity
 
   loading.value = true
 
   try {
-    activityName = activity.activityName
-    activityDate = activity.activityDate   
+    activityName = activity.activityName  
     isFree = activity.isFree
     activityLocation = activity.activityLocation
     activityDistance = activity.activityDistance
