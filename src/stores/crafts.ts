@@ -15,8 +15,9 @@ export const craftList: Map<number, Craft> = new Map<number, Craft>([
   }],
   [2,
     { craftId: 2, craftName: "Learn Basic Calligraphy",
-    craftMaterials: ["Calligraphy pen/brush pen", "Ink (if needed)", "Paper (smooth)", "Guide sheets/online tutorials"],
+    craftMaterials: ["Calligraphy pen/brush pen", "Ink (if needed)", "Paper (smooth)"],
     craftTags: ["indoor", "craft","creative"]
+    //embed yt vids
   }],
   [3,
     { craftId: 3, craftName: "Start a Sourdough Starter",

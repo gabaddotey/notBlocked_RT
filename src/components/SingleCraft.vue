@@ -8,8 +8,8 @@ const router = useRoute()
 
 var craftId: number
 var craftName: string
-var craftMaterials: string[] //Or tags??
-var craftTime: number
+var craftMaterials: string[] 
+var craftTags: string[]
 var craft: Craft
 
 const loading = ref(false)
@@ -26,9 +26,10 @@ async function fetchData(id: string| string[] | number) {
   loading.value = true
 
   try {
+    craftId = craft.craftId
     craftName = craft.craftName
     craftMaterials = craft.craftMaterials
-    craftTime = craft.craftTime
+    craftTags = craft.craftTags
   } catch {
     console.log("dang")
   } finally {
@@ -38,11 +39,28 @@ async function fetchData(id: string| string[] | number) {
 </script>
 
 <template>
+  <div class="wrapper">
     <h1>Craft Name: {{ craftName }}</h1>
     <h2>Materials:</h2> <h3 v-for = "craft in craftMaterials"> {{ craft }} </h3>
-    <h3>Time: {{craftTime}}min.</h3>
+  </div>
 </template>
 
 <style scoped>
+  .wrapper{
+    margin-bottom: 75px;
+  }
+  
+  h1{
+    font-size: 50px;
+  }
+  h2{
+    font-size: 40px;
+  }
+  h3{
+    font-family: "charcuterie-block", sans-serif;
+    font-weight: 800;
+    color: var(--c-teal);
+    font-size: 25px;
+  }
 
 </style>
