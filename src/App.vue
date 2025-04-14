@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import NavBar from '@/components/NavBar.vue';
-import Analytics from '@vercel/analytics';
+import { Analytics } from '@vercel/analytics/vue';
 </script>
 
 <template>
