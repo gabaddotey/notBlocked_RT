@@ -129,63 +129,107 @@ async function saveMultiAnswer(ans: any) {
   // call usePrefStore to save the answer
 }
 
-  const popup = document.getElementById("popup")
-
-  onBeforeRouteLeave((to, from) => {
-    let zip = prompt("What's your zip code?")
-    if(zip !=null){
-      console.log("There is a zip now")
-    }
-    // popup?.showPopover()
-    // return true
-  })
-  
-
-  function hidePopup(){
-	  popup?.hidePopover()
-  }
-
 </script>
 
 <template>
-    <h1>Title:{{ question.questionTitle }}</h1>
-    <h3>Path ID:{{ router.params.id }}</h3>
-    
-    <dialog popover id="popup">
-      <div class="wrapper">
-        <h2>What's your zip code?</h2>
-        <input>???</input>
-      </div>
-    </dialog>
+  <div class="wrapper">
+    <h5>Question {{router.params.id}}</h5>
+    <h2>{{ question.questionTitle }}</h2>
+    <!-- <h3>Path ID:{{ router.params.id }}</h3> -->
 
-    <div class="wrapper" v-if="question.type === 'multi'" v-for="option in question.questionOptions" >
+    <div  class="options" v-if="question.type === 'multi'" v-for="option in question.questionOptions" >
       <input ref="option.id" type="checkbox" :value="option.value" :checked="option.isChecked" v-model="checkedAnswers">{{ option.value }}</input>
     </div>
-    <div class="wrapper" v-if="question.type === 'single'" v-for="option in question.questionOptions" >
+
+    <div class="options"  v-if="question.type === 'single'" v-for="option in question.questionOptions" >
       <input ref="option" type="radio" :value="option.value" :checked="option.isChecked" v-model="singleAnswer">{{ option.value }}</input>
     </div>
-    <div class="wrapper" v-if="question.type === 'input'">
+
+    <div class="options"  v-if="question.type === 'input'">
       <input type="number" v-model="inputAnswer"></input>
     </div>
 
-    <h3>This is the nextQuestion link: {{ nextQuestion }}</h3>
-    <h3>This is the backQuestion link: {{ backQuestion }}</h3>
+    <!-- <h3>This is the nextQuestion link: {{ nextQuestion }}</h3>
+    <h3>This is the backQuestion link: {{ backQuestion }}</h3> -->
 
     <div>
       <button v-if="nextQuestion !== '/quiz/'+(questionList.size+1)"><RouterLink :to="nextQuestion">Next</RouterLink></button>
       <button v-if="backQuestion !== '/quiz/0'"><RouterLink :to="backQuestion">Back</RouterLink></button>
-      <button v-if="nextQuestion !== '/quiz/'+(questionList.size+1)"><RouterLink to="/home">Skip for now</RouterLink></button>
       <button v-if="nextQuestion === '/quiz/'+(questionList.size+1)"><RouterLink to="/home">Done!</RouterLink></button>
     </div>
+    <button class="footer" v-if="nextQuestion !== '/quiz/'+(questionList.size+1)"><RouterLink to="/home">Skip for now</RouterLink></button>
 
-    <div v-for = "answer in checkedAnswers">
+  </div>
+
+    <!-- <div v-for = "answer in checkedAnswers">
       checked answer: {{ answer }}
     </div>
     <div v-if="singleAnswer">
       single answer: {{ singleAnswer }}
-    </div>
+    </div> -->
+
 </template>
 
+<style>
+  html{
+    scroll-behavior: smooth;
+  }
+
+  h5{
+    font-family: "bebas-neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+    margin: 0;
+    color: var(--c-navy)
+  }
+
+  .footer{
+    border: 0;
+    position: fixed;
+    bottom: 0vh;
+    left: 0;
+    width: 100vw;
+    height: 60px;
+    padding-left: 20px;
+    margin-top: 10vh;
+    text-align: left;
+    background: var(--c-teal);
+    color: var(--c-navy)
+  }
+</style>
+
 <style scoped>
+  body{
+    display: flex;
+  }
+  .wrapper{
+    margin-bottom: 75px;
+  }
+  body{
+    height:150%;
+    overflow-y:scroll;
+    margin: 0;
+  }
+  h2{
+    margin-right:50px;
+  }
+
+  .options{
+    font-family: "bebas-neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 25px;
+    padding-bottom: 10px;
+  }
+
+  button *{
+    font-family: "charcuterie-block", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 5ch;
+
+  }
+
 
 </style>

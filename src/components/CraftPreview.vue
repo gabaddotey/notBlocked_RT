@@ -7,7 +7,7 @@ const props = defineProps({
   craftName: String,
   //craftMaterials: String[], //Or tags??
   craftTime: Number,
-  craftTags: Array as PropType<Tag[]>
+  craftTags: Array as PropType<string[]>
 })
 
 const craftLink = "/craft/"+(props.craftId?.toString())
@@ -16,10 +16,9 @@ const craftLink = "/craft/"+(props.craftId?.toString())
 
 <template>
   <div>
-    <h1>Craft Name: {{ craftName }}</h1>
-    <p v-for="tag in craftTags">{{ Object.keys(tag!)[0] }}</p>
-    <h2>Time: {{ craftTime }} min.</h2>
-    <button><RouterLink :to= craftLink>Let's Do It!</RouterLink></button>
+    <h1>{{ craftName }}</h1>
+    <p v-for="tag in craftTags">{{ tag }}</p>
+    <button><RouterLink :to=craftLink>Let's Do It!</RouterLink></button>
   </div>
 </template>
 
@@ -36,5 +35,8 @@ p{
   display: inline-flex;
   padding: 5px;
   margin-right: 10px;
+}
+button{
+  float: right;
 }
 </style>

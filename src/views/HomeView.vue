@@ -3,7 +3,6 @@ import {getActivityList, getActivity, type Activity} from '@/stores/activities.t
 import EventPreview from '../components/EventPreview.vue'
 import {getCraftList, getCraft} from '@/stores/crafts.ts'
 import CraftPreview from '../components/CraftPreview.vue'
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Suspense } from 'vue';
 import EventList from '@/components/EventList.vue';
 
@@ -40,8 +39,7 @@ const craftList = getCraftList()
 
   <div v-for="craft in craftList">
     <CraftPreview :craftId= craft[1].craftId :craftName = craft[1].craftName 
-    :craftMaterials = craft[1].craftMaterials :craftTime = craft[1].craftTime
-    :craftTags = craft[1].craftTags /> 
+    :craftMaterials = craft[1].craftMaterials :craftTags = craft[1].craftTags /> 
   </div>
 
 </template>

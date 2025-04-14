@@ -7,7 +7,7 @@ import { ref, reactive } from 'vue'
 //   today?: boolean
 // }
 
-export type TagNames = "indoors" | "outdoors" | "today"
+export type TagNames = "indoors" | "outdoors"
 
 export type Tag = {
   [name in TagNames]: boolean

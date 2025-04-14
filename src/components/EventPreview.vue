@@ -20,39 +20,63 @@ const eventLink = "/event/"+(props.activityId?.toString())
 <template>
   <Suspense>
   <div>
-    <h1>Activity Name: {{ activityName }}</h1>
+    <h1>{{ activityName }}</h1>
     <!-- <p v-for="tag in activityTags">{{ Object.keys(tag!)[0] }}</p> -->
-    <p class="filter" v-for="tag in filterTags">{{ tag }}</p>
+    <p class="filterTag" v-for="tag in filterTags">{{ tag }}</p>
     <p v-for="tag in activityTags">{{ tag }}</p>
 
-    <h2>Location: {{ activityLocation }}</h2>
     <h3>Distance: {{ activityDistance }}mi.</h3>
+    <h4>{{ activityLocation }}</h4>
     <button><RouterLink :to= eventLink>Learn More</RouterLink></button>
-    <h2 class="price">Free? {{ isFree }}</h2>
+    <!-- <h2 class="price">Free? {{ isFree }}</h2> -->
   </div>
   </Suspense>
 </template>
 
 <style scoped>
 div{
-  border: 5px grey solid;
+  border: 5px var(--c-teal) solid;
   padding: 10px;
+  font-weight: 800;
   margin: 5px;
+}
+h1{
+  font-family: "charcuterie-block", sans-serif;
+  font-weight: 800;
+  font-size: 45px;
+}
+h3{
+  font-family: "charcuterie-block", sans-serif;
+  font-weight: 800;
+  color: var(--c-teal);
+  font-size: 25px;
+}
+h4{
+  font-family: "charcuterie-block", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+  color: var(--c-orange);
 }
 p{
   border: 5px grey solid;
   width: fit-content;
   display: inline-flex;
   padding: 5px;
-  margin-right: 10px;
-}
-.price{
-  float:right;
-  text-align: right;
-  font-size: 15px;
+  margin:5px;
+
+  font-family: "bebas-neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  }
+button *{
+  color: var(--c-teal);
+  padding: 14px;
 }
 
-.filter{
+.filterTag{
   border: 5px orange solid;
+  background: var(--c-navy);
+  color: var(--c-orange);
 }
 </style>
