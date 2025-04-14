@@ -12,7 +12,7 @@ var craftList = getCraftList()
 
   <div v-for="craft in craftList">
     <CraftPreview :craftId= craft[1].craftId :craftName = craft[1].craftName 
-    :craftMaterials = craft[1].craftMaterials :craftTime = craft[1].craftTime
+    :craftMaterials = craft[1].craftMaterials
     :craftTags = craft[1].craftTags />
   </div>
 
