@@ -1,5 +1,6 @@
 import { type Tag} from "@/stores/tags.ts"
 //Change name to tutorials??
+
 export interface Craft {
   craftId: number
   craftName: string
@@ -29,14 +30,31 @@ export const craftList: Map<number, Craft> = new Map<number, Craft>([
     { craftId: 3, craftName: "Start a Sourdough Starter",
     craftMaterials: ["Flour", "Water", "Glass jar", "Scale (optional)"],
     craftTags: ["indoor", "baking", "science"],
+    craftIntructs:[
+      "Step 1: Gather Materials: You need unbleached all-purpose or whole wheat flour, filtered or dechlorinated water (let tap water sit out overnight), a clean glass jar (at least 1-pint capacity), and a kitchen scale (highly recommended for accuracy) or measuring cups.",
+      "Step 2: Initial Mix (Day 1): Combine equal weights of flour and water in your jar (e.g., 50g flour + 50g water, or about 1/2 cup flour + 1/4 cup water if not using a scale). Stir thoroughly until no dry flour remains. The consistency should be like thick pancake batter.",
+      "Step 3: Cover & Wait: Loosely cover the jar (plastic wrap with holes, a loose lid, or a coffee filter secured with a rubber band) to allow airflow but prevent drying out. Leave it in a warm place (around 70-80°F / 21-27°C) for 24 hours.",
+      "Step 4: Feeding Routine (Days 2-7+): Each day (around the same time): Discard: Remove and discard most of the starter, leaving only a small amount (e.g., keep 50g, or about 1/4 cup). Feed: Add fresh flour and water in equal weights (e.g., 50g flour + 50g water) to the portion you kept. Mix & Wait: Stir well, cover loosely, and place back in its warm spot for another 24 hours.",
+      "Step 5: Observe: Look for signs of activity: bubbles, a slightly sour or yeasty smell, and an increase in volume between feedings. This can take anywhere from 5 to 14 days, sometimes longer. Be patient! If mold (pink or orange streaks) appears, discard and start over.",
+      "Step 6: Maintain: Once the starter reliably doubles in volume within a few hours after feeding and smells pleasantly sour, it's active! You can now store it in the fridge and feed it less often (e.g., weekly) or keep it at room temperature and feed it daily (or twice daily if very active) if you plan to bake frequently."
+    ],
     needsButton:true
     }
   ],
   [4, 
     {
-      craftId: 4, craftName: "Learn Basic Knitting or Crochet",
+      craftId: 4, craftName: "Learn Basic Crochet",
       craftMaterials: ["Yarn", "Knitting needles or Crochet hook", "Scissors"],
       craftTags: ["indoor", "craft", "art"],
+      craftIntructs:[
+        "Step 1: Gather Materials: Get a crochet hook (medium size like H/8 / 5mm is good for beginners), worsted weight yarn in a light color, and scissors.",
+        "Step 2: Make a Slip Knot: Create an adjustable loop and place it on your hook.",
+        "Step 3: Learn the Chain Stitch (ch): Practice making a foundation chain of a specific length (e.g., chain 15-20 stitches). This forms the base of your work.",
+        "Step 4: Learn the Single Crochet Stitch (sc): Insert hook into the second chain from the hook, yarn over, pull up a loop (2 loops on hook), yarn over again, pull through both loops. Practice making one sc in each chain across.",
+        "Step 5: Turn Work & Start New Row: At the end of the row, chain one (turning chain) and turn your work. Work a single crochet stitch into each stitch of the previous row.",
+        "Step 6: Practice: Continue making rows of single crochet until you have a small square or rectangle.",
+        "Step 7: Fasten Off: When finished, cut the yarn leaving a tail, yarn over, and pull the tail completely through the loop on the hook to secure it. Weave in ends with the hook or a tapestry needle."
+      ],
       needsButton:true
     }
   ],
