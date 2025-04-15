@@ -45,7 +45,7 @@ async function geminiGenerate() {
   const zipcode = getZipcode()
   const prompt = `Can you generate a list of things to do near the ${zipcode} zip code? Use the following list as the target user's preferences for the activities they like:
   ${prefArr}
-  Limit the response to 4 activities max. Use the json format below and only return valid json code WITHOUT including the word json or anything before the opening square bracket, or any "\`" characters. The response should begin with a square bracket and end with a closing square bracket.
+  Limit the response to 10 activities max. Use the json format below and only return valid json code WITHOUT including the word json or anything before the opening square bracket, or any "\`" characters. The response should begin with a square bracket and end with a closing square bracket.
   { activityName: "Name of activity",
   activityLocation: "The location of the activity"
   learnMoreLink: "A link to the location's website or somewhere to get more information about the activity"

@@ -58,6 +58,14 @@ const craftList = getCraftList()
     box-shadow: -5px 5px var(--c-navy);
     text-shadow: -3.5px 3px var(--c-navy),-2.5px 2.5px var(--c-navy),-2px 2px var(--c-navy),-1px 1px var(--c-navy);
   }
+
+  .home-button, .home-button *{
+    background-color: var(--c-navy);
+    color:white;
+    font-size: 15px;
+    text-decoration: none !important;
+  }
+
   .wrapper{
       margin-bottom: 10vh;
   }

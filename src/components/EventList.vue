@@ -6,6 +6,7 @@ import { reactive } from 'vue'
 import { forEachChild } from 'typescript'
 
 const data = await getActivityList()
+
 onMounted(async () => {
   state.activities = Array.from(data.values())
   state.selectedActivities = state.activities

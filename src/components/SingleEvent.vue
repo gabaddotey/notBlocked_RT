@@ -41,9 +41,10 @@ async function fetchData(id: string| string[] | number) {
 </script>
 
 <template>
-    <h1>Activity Name: {{ activityName }}</h1>
-    <h2>Location: {{activityLocation}}</h2>
-    <h3>Distance: {{activityDistance}}mi.</h3>
+  <button class="home-button"><RouterLink to="/home">Home</RouterLink></button>
+  <h1>Activity Name: {{ activityName }}</h1>
+  <h2>Location: {{activityLocation}}</h2>
+  <h3>Distance: {{activityDistance}}mi.</h3>
 </template>
 
 <style scoped>

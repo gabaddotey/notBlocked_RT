@@ -9,6 +9,7 @@ var craftList = getCraftList()
 
 <template>
   <div class="wrapper">
+    <button class="home-button"><RouterLink to="/home">Home</RouterLink></button>
     <h1 class="page-title">Staying In?</h1>
 
     <div v-for="craft in craftList">

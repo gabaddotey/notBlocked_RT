@@ -9,9 +9,13 @@ let today = new Date().toLocaleDateString()
 
 <template>
   <div class="wrapper">
+    <button class="home-button"><RouterLink to="/home">Home</RouterLink></button>
     <h1 class="page-title">Going Out?</h1>
     <Suspense>
       <EventList />
+      <template #fallback>
+        <h2>Loading Reccomended Activities...</h2>
+      </template>
     </Suspense>
   </div>
 </template>

@@ -5,12 +5,13 @@
 
 <template>
     
-  <div>
-    <!-- <button><RouterLink to="/events">Going Out?</RouterLink></button>
+  <div class="footer">
+    <button><RouterLink to="/home">Home</RouterLink></button>
+    <button><RouterLink to="/events">Going Out?</RouterLink></button>
+    <button><RouterLink to="/crafts">Staying In?</RouterLink></button>
     <button><RouterLink to="/quiz/1">Retake the Quiz!</RouterLink></button>
-    <button><RouterLink to="/crafts">Staying In?</RouterLink></button> -->
 
-    <button class="footer"><RouterLink to="/quiz/1">Retake the Quiz!</RouterLink></button>
+    <!-- <button class="footer"><RouterLink to="/quiz/1">Retake the Quiz!</RouterLink></button> -->
   </div>
 </template>
 
@@ -34,9 +35,10 @@
 .footer button{
   background: var(--c-teal);
   border: 5px var(--c-navy) solid;
-  color: var(--c-orange);
+  color: white;
   
-  height:20%;
+  height:15%;
+  padding:5px;
 
   font-size: 15px;
   font-weight: 700;

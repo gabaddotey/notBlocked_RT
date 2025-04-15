@@ -72,4 +72,11 @@ button *{
   font-size: 25px;
   padding: 14px;
 }
+
+button a{
+  width: 100%;
+  display: block;
+  padding: 0;
+}
+
 </style>
