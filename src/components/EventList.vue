@@ -56,13 +56,14 @@ function clearTags(){
 </script>
 
 <template>
+  <h3>Filters:</h3>
   <div id="filters">
     <div v-for="tag in state.tags" :key="tag">
-      <button :class="{ 'selected': state.selectedTags.includes(tag)}" @click="tagClicked(tag)">{{ tag }}</button>
+      <button class="tag" :class="{ 'selected': state.selectedTags.includes(tag)}" @click="tagClicked(tag)">{{ tag }}</button>
     </div>
-    <button @click="clearTags()">Clear filters</button>
+    <button id="clear" @click="clearTags()">Clear filters</button>
   </div>
-    <h2>{{ state.selectedTags }}</h2>
+    <!-- <h2>{{ state.selectedTags }}</h2> -->
     <div v-for="act in state.selectedActivities">
 
     <EventPreview :activityName= act.activityName 
@@ -80,9 +81,23 @@ function clearTags(){
     display:inline-flex;
     gap:10px;
     flex-wrap:wrap;
+    margin-bottom:15px;
   }
   .selected{
-    background-color: black;
+    background:var(--c-dark-orange);
+    scale: 115%;
+    border: inherit 10px solid;
+  }
+
+  h3{
+    font-family: "charcuterie-block", sans-serif;
+    font-weight: 800;
+    color: var(--c-orange);
+    font-size: 40px;
+    margin-bottom:10px;
+  }
+  #clear{
+    background: var(--c-navy);
     color: white;
   }
 </style>

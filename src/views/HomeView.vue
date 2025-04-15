@@ -27,19 +27,44 @@ const craftList = getCraftList()
 </script>
 
 <template>
+  <div class="wrapper">
+    <h1 class="page-title">Home</h1>  
+    <Suspense>
+      <EventList />
 
-  <h1>Home</h1>  
-  <Suspense>
-    <EventList />
+      <template #fallback>
+        <h2>Loading Reccomended Activities...</h2>
+      </template>
+    </Suspense>
 
-    <template #fallback>
-      <b>Loading...</b>
-    </template>
-  </Suspense>
-
-  <div v-for="craft in craftList">
-    <CraftPreview :craftId= craft[1].craftId :craftName = craft[1].craftName 
-    :craftMaterials = craft[1].craftMaterials :craftTags = craft[1].craftTags /> 
+    <div v-for="craft in craftList">
+      <CraftPreview :craftId= craft[1].craftId :craftName = craft[1].craftName 
+      :craftMaterials = craft[1].craftMaterials :craftTags = craft[1].craftTags /> 
+    </div>
   </div>
-
 </template>
+
+<style>
+  .page-title{
+    font-size:50px;
+    margin-bottom:30px;
+    padding:15px;
+    width:100vw;
+    text-align:center;
+    place-self: center;
+
+    background: var(--c-teal);
+    border: 5px var(--c-navy) solid;
+    box-shadow: -5px 5px var(--c-navy);
+    text-shadow: -3.5px 3px var(--c-navy),-2.5px 2.5px var(--c-navy),-2px 2px var(--c-navy),-1px 1px var(--c-navy);
+  }
+  .wrapper{
+      margin-bottom: 10vh;
+  }
+</style>
+
+<style scoped>
+  h2{
+    color:var(--c-navy);
+  }
+</style>

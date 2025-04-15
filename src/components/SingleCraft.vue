@@ -40,8 +40,11 @@ async function fetchData(id: string| string[] | number) {
 
 <template>
   <div class="wrapper">
-    <h1>Craft Name: {{ craftName }}</h1>
-    <h2>Materials:</h2> <h3 v-for = "craft in craftMaterials"> {{ craft }} </h3>
+    <button class="home-button"><RouterLink to="/home">Home</RouterLink></button>
+    <h1>{{ craftName }}</h1>
+    <h2>Materials:</h2> 
+
+    <div class="crafts"><h3 class="tag" v-for = "craft in craftMaterials"> {{ craft }} </h3></div>
   </div>
 </template>
 
@@ -62,5 +65,19 @@ async function fetchData(id: string| string[] | number) {
     color: var(--c-teal);
     font-size: 25px;
   }
+  .home-button{
+    background-color: var(--c-navy);
+    color:white;
+    font-size: 20px;
+  }
+  .crafts{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 
+  }
+  .crafts h3{
+    color: white;
+    font-size: 15px;
+  }
 </style>

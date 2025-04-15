@@ -136,26 +136,28 @@ async function saveMultiAnswer(ans: any) {
     <h5>Question {{router.params.id}}</h5>
     <h2>{{ question.questionTitle }}</h2>
     <!-- <h3>Path ID:{{ router.params.id }}</h3> -->
+    <div class="options-wrapper">
+      <div  class="options" v-if="question.type === 'multi'" v-for="option in question.questionOptions" >
+        <input ref="option.id" type="checkbox" :id="option.value" :value="option.value" :checked="option.isChecked" v-model="checkedAnswers"></input>
+        <label :for="option.value">{{ option.value }}</label>
+      </div>
 
-    <div  class="options" v-if="question.type === 'multi'" v-for="option in question.questionOptions" >
-      <input ref="option.id" type="checkbox" :value="option.value" :checked="option.isChecked" v-model="checkedAnswers">{{ option.value }}</input>
+      <div class="options"  v-if="question.type === 'single'" v-for="option in question.questionOptions" >
+        <input ref="option" :id="option.value" type="radio" :value="option.value" :checked="option.isChecked" v-model="singleAnswer"></input>
+        <label :for="option.value">{{ option.value }}</label>
+      </div>
+
+      <div class="options"  v-if="question.type === 'input'">
+        <input type="number" v-model="inputAnswer"></input>
+      </div>
     </div>
-
-    <div class="options"  v-if="question.type === 'single'" v-for="option in question.questionOptions" >
-      <input ref="option" type="radio" :value="option.value" :checked="option.isChecked" v-model="singleAnswer">{{ option.value }}</input>
-    </div>
-
-    <div class="options"  v-if="question.type === 'input'">
-      <input type="number" v-model="inputAnswer"></input>
-    </div>
-
     <!-- <h3>This is the nextQuestion link: {{ nextQuestion }}</h3>
     <h3>This is the backQuestion link: {{ backQuestion }}</h3> -->
 
-    <div>
-      <button v-if="nextQuestion !== '/quiz/'+(questionList.size+1)"><RouterLink :to="nextQuestion">Next</RouterLink></button>
-      <button v-if="backQuestion !== '/quiz/0'"><RouterLink :to="backQuestion">Back</RouterLink></button>
-      <button v-if="nextQuestion === '/quiz/'+(questionList.size+1)"><RouterLink to="/home">Done!</RouterLink></button>
+    <div class="nav-buttons-wrapper">
+      <button class="nav-buttons" v-if="nextQuestion !== '/quiz/'+(questionList.size+1)"><RouterLink :to="nextQuestion">Next</RouterLink></button>
+      <button class="nav-buttons" v-if="backQuestion !== '/quiz/0'"><RouterLink :to="backQuestion">Back</RouterLink></button>
+      <button class="nav-buttons" v-if="nextQuestion === '/quiz/'+(questionList.size+1)"><RouterLink to="/home">Done!</RouterLink></button>
     </div>
     <button class="footer" v-if="nextQuestion !== '/quiz/'+(questionList.size+1)"><RouterLink to="/home">Skip for now</RouterLink></button>
 
@@ -171,17 +173,25 @@ async function saveMultiAnswer(ans: any) {
 </template>
 
 <style>
+  *{
+    transition: all cubic-bezier(0.53, -0.19, 0.36, 1.08) .3s;
+  }
   html{
     scroll-behavior: smooth;
   }
 
-  h5{
+  h5, input[type="number"]{
     font-family: "bebas-neue", sans-serif;
     font-weight: 400;
     font-style: normal;
     font-size: 30px;
     margin: 0;
     color: var(--c-navy)
+  }
+
+  a, a:visited{
+    text-decoration:none;
+    color:inherit;
   }
 
   .footer{
@@ -195,24 +205,62 @@ async function saveMultiAnswer(ans: any) {
     margin-top: 10vh;
     text-align: left;
     background: var(--c-teal);
-    color: var(--c-navy)
+    color: var(--c-navy);
+
+    clip-path: polygon(0 3%, 100% 16%, 100% 100%, 0 100%);
+  }
+
+  .footer a {
+    width: 100%;
+    display: block;
+    padding: 0;
   }
 </style>
 
 <style scoped>
+
+
   body{
     display: flex;
-  }
-  .wrapper{
-    margin-bottom: 75px;
-  }
-  body{
     height:150%;
     overflow-y:scroll;
     margin: 0;
   }
+
+  .wrapper{
+      margin-bottom: 75px;
+  }
+
+  .options-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .nav-buttons-wrapper{
+    place-self: center;
+    margin: 5vh;
+  }
+
+  .nav-buttons{
+    margin-right:15px;
+    background: var(--c-teal);
+    border: 5px var(--c-navy) solid;
+    box-shadow: -5px 5px var(--c-navy);
+    color: var(--c-orange);
+    text-shadow: -3.5px 3px var(--c-navy),-2.5px 2.5px var(--c-navy),-2px 2px var(--c-navy),-1px 1px var(--c-navy);
+
+    place-self: center;
+  }
+
   h2{
     margin-right:50px;
+    background: var(--c-teal);
+    border: 5px var(--c-navy) solid;
+    box-shadow: -5px 5px var(--c-navy);
+    text-shadow: -3.5px 3px var(--c-navy),-2.5px 2.5px var(--c-navy),-2px 2px var(--c-navy),-1px 1px var(--c-navy);
+    padding:20px;
+    width:80vw;
   }
 
   .options{
@@ -231,5 +279,50 @@ async function saveMultiAnswer(ans: any) {
 
   }
 
+  input[type="radio"],input[type="checkbox"]{
+    display:none;
+  }
+
+  input[type="number"]{
+    border-style: none;
+    text-align:center;
+    padding-left:10px;
+    width:70vw;
+    height:10vh;
+    color: white;
+    clip-path: polygon(1% 5%, 98% 6%, 99% 94%, 3% 97%);
+    background: var(--c-navy);
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    display: none;
+  }
+  /* Firefox arrow fix */
+  input[type=number] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
+
+  input:checked + label{
+    background:var(--c-dark-orange);
+    scale: 105%;
+  }
+
+  label{
+    display: inline-block;
+    padding:20px;
+    background: var(--c-navy);
+    color: white;
+    transition:all cubic-bezier(0.44, 0.02, 0.35, 1.01) .3s;
+  }
+
+  .wrapper .options:nth-child(2n-1) input + label{
+    clip-path: polygon(1% 5%, 98% 6%, 99% 94%, 3% 97%);
+    /* opacity: 10%; */
+  }
+  .wrapper .options:nth-child(2n) input + label{
+    clip-path: polygon(0% 6%, 97% 10%, 98% 89%, 1% 94%);
+  }
 
 </style>

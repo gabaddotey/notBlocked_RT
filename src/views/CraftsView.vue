@@ -8,12 +8,13 @@ var craftList = getCraftList()
 </script>
 
 <template>
-  <h1>Crafts</h1>
+  <div class="wrapper">
+    <h1 class="page-title">Staying In?</h1>
 
-  <div v-for="craft in craftList">
-    <CraftPreview :craftId= craft[1].craftId :craftName = craft[1].craftName 
-    :craftMaterials = craft[1].craftMaterials
-    :craftTags = craft[1].craftTags />
+    <div v-for="craft in craftList">
+      <CraftPreview :craftId= craft[1].craftId :craftName = craft[1].craftName 
+      :craftMaterials = craft[1].craftMaterials
+      :craftTags = craft[1].craftTags />
+    </div>
   </div>
-
 </template>

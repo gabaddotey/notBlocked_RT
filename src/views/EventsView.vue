@@ -8,8 +8,10 @@ let today = new Date().toLocaleDateString()
 </script>
 
 <template>
-  <h1>Activities</h1>
-  <Suspense>
-    <EventList />
-  </Suspense>
+  <div class="wrapper">
+    <h1 class="page-title">Going Out?</h1>
+    <Suspense>
+      <EventList />
+    </Suspense>
+  </div>
 </template>
