@@ -8,39 +8,44 @@ export interface Craft {
   craftIntructs?: string[]
   craftLink?:string
   craftVid?:string
+  needsButton:boolean
 }
 
 export const craftList: Map<number, Craft> = new Map<number, Craft>([
   [1,
     {craftId: 1, craftName: "Build a Blanket Fort", 
     craftMaterials: ["Blankets", "Sheets", "Pillows", "Chairs", "Couch cushions"], 
-    craftTags: ["indoor"]
+    craftTags: ["indoor"],
+    needsButton:false
 
   }],
   [2,
     { craftId: 2, craftName: "Learn Basic Calligraphy",
     craftMaterials: ["Calligraphy pen/brush pen", "Ink (if needed)", "Paper (smooth)"],
-    craftTags: ["indoor", "craft","creative"]
-
+    craftTags: ["indoor", "craft","creative"],
+    needsButton:true
   }],
   [3,
     { craftId: 3, craftName: "Start a Sourdough Starter",
     craftMaterials: ["Flour", "Water", "Glass jar", "Scale (optional)"],
-    craftTags: ["indoor", "baking", "science"]
+    craftTags: ["indoor", "baking", "science"],
+    needsButton:true
     }
   ],
   [4, 
     {
       craftId: 4, craftName: "Learn Basic Knitting or Crochet",
       craftMaterials: ["Yarn", "Knitting needles or Crochet hook", "Scissors"],
-      craftTags: ["indoor", "craft", "art"]
+      craftTags: ["indoor", "craft", "art"],
+      needsButton:true
     }
   ],
   [5,{
     craftId: 5,
     craftName: "Play Traditional Card Games",
     craftMaterials: ["Deck of cards"],
-    craftTags: ["indoor", "games"]
+    craftTags: ["indoor", "games"],
+    needsButton:false
     }
   ],
   [ 6, 
@@ -51,8 +56,8 @@ export const craftList: Map<number, Craft> = new Map<number, Craft>([
       craftTags: ["indoor", "art", "science", "craft"],
       craftIntructs:["Step 1: Prepare Workspace: Cover your work surface with newspaper or paper towels, as this can be a bit messy.","Step 2: Fill Bowl with Water: Fill a shallow bowl or pan with room temperature water, about an inch or two deep.","Step 3: Add Nail Polish: Gently add ONE drop of clear nail polish onto the surface of the water. Don't stir. Observe as it quickly spreads out into a thin, shimmery film.","Step 4: Dip the Paper: Take a piece of black (or dark-colored) construction paper. Quickly but smoothly dip the paper onto the surface of the water where the polish film is. You can dip it flat or at a slight angle.","Step 5: Lift and Dry: Immediately lift the paper out of the water. The nail polish film should have transferred onto the paper, creating iridescent rainbow patterns. Lay the paper flat on your protected surface or paper towels to dry completely.","Step 6: Repeat & Experiment: You may need to clean the water surface (skim with paper towel) and add a fresh drop of polish for each new print. Experiment with different dipping techniques or adding a second drop carefully."],
       craftLink:"https://sciencekiddo.com/rainbow-paper-kid-color-science/",
-      craftVid:"https://youtu.be/BFuZ8WcAwqE"
-
+      craftVid:"https://youtu.be/BFuZ8WcAwqE",
+      needsButton:true
     }
   ],
   [ 7,
@@ -61,27 +66,28 @@ export const craftList: Map<number, Craft> = new Map<number, Craft>([
       craftName: "Press Flowers with an Iron",
       craftMaterials: ["Fresh flowers/leaves", "An iron", "Parchment paper", "A towel"],
       craftTags: ["indoor", "outdoor", "craft","art"],
-      craftIntructs:[`Step 1: Gather Materials: Collect fresh flowers or leaves (avoid overly thick or very wet ones). You'll need parchment paper (not wax paper), an iron, an ironing board or heat-resistant flat surface, and a towel or plain paper.`,
-      `Step 2: Prepare Flowers: Gently blot any moisture off the flowers/leaves. Trim stems if necessary.`,
-      `Step 3: Prepare Iron: Empty any water from the iron. Set it to a low-to-medium heat setting with NO STEAM. Allow it to heat up.`,
-      ,`Step 4: Create the Sandwich: Lay down a towel or sheet of plain paper on your ironing surface. Place a sheet of parchment paper on top. Arrange your flowers/leaves flat on the parchment, ensuring they don't overlap too much. Place another sheet of parchment paper over the flowers. Finally, place another sheet of plain paper or a thin towel on top.`,
-      `Step 5: Press with Iron: Gently press the warm, dry iron onto the top towel/paper for about 10-15 seconds. Do not glide the iron back and forth like you're ironing clothes; just press down firmly.`,
-      `Step 6: Cool and Check: Lift the iron off. Let the "sandwich" cool completely for a minute or two. Carefully lift the top layers and check the flowers. They should look flatter and papery.`,
-      ,`Step 7: Repeat if Necessary: If flowers still feel moist or aren't flat enough, replace the parchment paper (it might absorb moisture) and repeat the pressing and cooling process until they are fully dry and pressed. Handle the finished flowers carefully.`],
+      craftIntructs:["Step 1: Gather Materials: Collect fresh flowers or leaves (avoid overly thick or very wet ones). You will need parchment paper (not wax paper), an iron, an ironing board or heat-resistant flat surface, and a towel or plain paper."
+      ,"Step 2: Prepare Flowers: Gently blot any moisture off the flowers/leaves. Trim stems if necessary."
+      ,"Step 3: Prepare Iron: Empty any water from the iron. Set it to a low-to-medium heat setting with NO STEAM. Allow it to heat up."
+      ,"Step 4: Create the Sandwich: Lay down a towel or sheet of plain paper on your ironing surface. Place a sheet of parchment paper on top. Arrange your flowers/leaves flat on the parchment, ensuring they don't overlap too much. Place another sheet of parchment paper over the flowers. Finally, place another sheet of plain paper or a thin towel on top."
+      ,"Step 5: Press with Iron: Gently press the warm, dry iron onto the top towel/paper for about 10-15 seconds. Do not glide the iron back and forth like you're ironing clothes, just press down firmly."
+      ,"Step 6: Cool and Check: Lift the iron off. Let the sandwich cool completely for a minute or two. Carefully lift the top layers and check the flowers. They should look flatter and papery."
+      ,"Step 7: Repeat if Necessary: If flowers still feel moist or aren't flat enough, replace the parchment paper (it might absorb moisture) and repeat the pressing and cooling process until they are fully dry and pressed. Handle the finished flowers carefully."],
+      needsButton:true,
       craftVid:"https://youtu.be/S6m47yIyqJ4"
-    }
-  ],
+    }],
   [ 8,
     {
         craftId: 8,
         craftName: "Make Giant Soap Bubbles",
         craftMaterials: ["Dish soap", "Water", "Sugar", "String", "Sticks or dowels", "Washer or small weight"],
         craftTags: ["outdoor", "science"],
-        craftIntructs:[`Step 1: Gather Materials: You'll need water (distilled is best but tap often works), liquid dish soap (Dawn Ultra is often recommended), a thickening agent (glycerin, corn syrup, or even sugar), a large clean bucket or tub, two sticks or dowels (about 1-2 feet long), cotton string, and a metal washer or small weight.
-        `,`Step 2: Make the Bubble Wand: Cut two lengths of string. One should be about twice as long as the distance between the tips of your sticks when held apart; the other about 1.5 times that distance. Tie the ends of the shorter string to the tips of the two sticks. Tie the ends of the longer string to the tips as well, but slide the metal washer onto this longer string before tying the second end. This creates a triangular or V-shaped loop with a weight at the bottom.
+        craftIntructs:["Step 1: Gather Materials: You'll need water (distilled is best but tap often works), liquid dish soap (Dawn Ultra is often recommended), a thickening agent (glycerin, corn syrup, or even sugar), a large clean bucket or tub, two sticks or dowels (about 1-2 feet long), cotton string, and a metal washer or small weight."
+        ,`Step 2: Make the Bubble Wand: Cut two lengths of string. One should be about twice as long as the distance between the tips of your sticks when held apart; the other about 1.5 times that distance. Tie the ends of the shorter string to the tips of the two sticks. Tie the ends of the longer string to the tips as well, but slide the metal washer onto this longer string before tying the second end. This creates a triangular or V-shaped loop with a weight at the bottom.
         `,`Step 3: Mix the Bubble Solution: In the bucket, gently mix the ingredients. A common ratio is 6 cups water : 1 cup dish soap : 1/4 to 1/2 cup glycerin/corn syrup (or 1/4 cup sugar dissolved in some warm water first). Stir GENTLY – you want to dissolve the ingredients without creating a lot of foam. Let the solution sit for at least an hour, or even overnight, if possible (this often improves bubble quality).
         `,`Step 4: Dip the Wand: Submerge the string loop of your wand completely into the bubble solution. Make sure all the string is saturated.
         `,`Step 5: Lift and Create Bubbles: Slowly lift the wand out of the solution, letting excess drip off. Hold the sticks apart so the string forms its loop. Either walk backwards slowly, allowing the air to fill the bubble film, or stand still on a day with a very gentle breeze. Gently bring the stick tips together to close off the bubble.`],
+        needsButton:true,
         craftLink:"https://youtu.be/bGFpuHV-iwc"
     }
   ],
@@ -97,6 +103,7 @@ export const craftList: Map<number, Craft> = new Map<number, Craft>([
       `,`Step 4: Secure the Objects: If it's windy or your objects are lightweight, you may need to secure them. You can tape the very edges of leaves down (tape will leave its own mark). Alternatively, carefully place a clean sheet of glass or clear acrylic over the entire arrangement to hold everything flat and in place. Small rocks can also weight down corners if not using glass.
       `,`Step 5: Expose to Sun: Leave the paper and objects undisturbed in the direct sunlight. The time needed varies greatly depending on the sun's intensity and the paper quality - typically 2 to 5 hours. You should see the exposed paper visibly lightening (fading).
       `,`Step 6: Reveal the Print: Once the paper has noticeably faded, carefully remove the glass/weights/tape and the objects. The areas covered by the objects will have retained the paper's original darker color, creating silhouette prints.`],
+      needsButton:true,
       craftVid:"https://youtu.be/6CQ6x8zpX30"
     }
   ]
