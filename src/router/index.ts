@@ -10,6 +10,7 @@ import EventsView from '@/views/EventsView.vue'
 import CraftsView from '@/views/CraftsView.vue'
 
 const router = createRouter({
+  mode : 'hash',
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
